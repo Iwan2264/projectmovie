@@ -1,0 +1,41 @@
+name: projectmovie
+description: A Flutter movie app using GetX and TMDb API.
+
+environment:
+  sdk: ">=2.17.0 <4.0.0"
+
+dependencies:
+  flutter:
+    sdk: flutter
+  flutter_dotenv: ^5.2.1
+  get: ^4.6.6
+  http: ^1.4.0
+  shared_preferences: ^2.2.2
+  intl: ^0.20.2
+  flutter_rating_bar: ^4.0.1
+  image_picker: ^1.1.2
+  get_storage: ^2.1.1
+  flutter_inappwebview: ^6.1.5
+  youtube_player_iframe: ^5.2.1
+
+
+  
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+
+flutter:
+  uses-material-design: true
+  assets:
+    - .env
+fonts:
+  - family: Roboto
+    fonts:
+      - asset: assets/fonts/Roboto-Regular.ttf
+      - asset: assets/fonts/Roboto-Bold.ttf
+        weight: 700
+  - family: RobotoCondensed
+    fonts:
+      - asset: assets/fonts/RobotoCondensed-Regular.ttf
+      - asset: assets/fonts/RobotoCondensed-Bold.ttf
+        weight: 700

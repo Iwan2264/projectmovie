@@ -2,7 +2,7 @@
 
 ProjectMovie is a Flutter application designed to help users discover and explore movies. This project serves as a foundation for building feature-rich movie apps using Flutter.
 
-> **Note:** If you are using a Jio network, the TMDB API may not work and movies may not load. Please use a VPN to access the app. A proxy server will be added in the future to remove the need for a VPN.
+> **Note:** If you are using a Jio network, the TMDB API may not work and movies may not load. Please use a VPN / DNS 1.1.1.1 / one.one one.one / 8.8.8.8 / dns.google to access the app. A proxy server will be added in the future to remove the need for a VPN.
 
 ## Features
 - Browse popular and trending movies

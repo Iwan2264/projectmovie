@@ -5,17 +5,20 @@ import 'package:projectmovie/pages/movie/movie_details_widget/cast_widget.dart';
 import 'package:projectmovie/pages/movie/movie_details_widget/poster_widget.dart';
 import 'package:projectmovie/pages/movie/movie_details_widget/add_rate_widget.dart';
 import 'package:projectmovie/pages/movie/movie_details_widget/trailer_widget.dart';
+import 'package:projectmovie/pages/movie/movie_details_widget/streaming_widget.dart';
 
 
 class MovieDetailsPage extends StatelessWidget {
   final int movieId;
   const MovieDetailsPage({super.key, required this.movieId});
+  
 
   @override
   Widget build(BuildContext context) {
     final controller = Get.find<MovieController>();
     final movie = controller.getMovieById(movieId);
     final width = MediaQuery.of(context).size.width;
+    
 
     if (movie == null) {
       return Scaffold(
@@ -82,38 +85,8 @@ class MovieDetailsPage extends StatelessWidget {
                 },
               ),
 
-              const Padding(
-                padding: EdgeInsets.only(left: 16),
-                child: Text(
-                  'Streaming On!',
-                  style: TextStyle(
-                    fontSize: 14,
-                    fontFamily: 'Inter',
-                    color: Colors.black,
-                  ),
-                ),
-              ),
-              const SizedBox(height: 8),
-
-              // Streaming platforms (placeholder)
-              SizedBox(
-                height: 70,
-                child: ListView.builder(
-                  scrollDirection: Axis.horizontal,
-                  padding: const EdgeInsets.symmetric(horizontal: 16),
-                  itemCount: 5,
-                  itemBuilder: (context, index) => Container(
-                    margin: const EdgeInsets.only(right: 10),
-                    width: 100,
-                    height: 60,
-                    decoration: BoxDecoration(
-                      color: Theme.of(context).colorScheme.surfaceVariant,
-                      borderRadius: BorderRadius.circular(8),
-                    ),
-                  ),
-                ),
-              ),
-              const SizedBox(height: 20),
+              //Streaming Services
+              StreamingWidget(movieId: movie.id),
             ],
           ),
         ),

@@ -16,7 +16,7 @@ class StreamingWidget extends StatelessWidget {
     return Obx(() {
       return Container(
         margin: const EdgeInsets.symmetric(horizontal: 16),
-        padding: const EdgeInsets.all(16),
+        padding: EdgeInsets.fromLTRB(16, 10, 16, 10),
         width: double.infinity,
         decoration: BoxDecoration(
           color: Theme.of(context).colorScheme.surfaceContainerHighest,
@@ -53,7 +53,7 @@ class StreamingWidget extends StatelessWidget {
                                       fontFamily: 'Roboto',
                                     ),
                               ),
-                              const SizedBox(height: 12),
+                              const SizedBox(height: 6),
                               SizedBox(
                                 height: 70,
                                 child: ListView.builder(
@@ -72,18 +72,21 @@ class StreamingWidget extends StatelessWidget {
                                         }
                                       },
                                       child: Padding(
-                                       padding: const EdgeInsets.only(right: 8),
-                                        child: Image.network(
-                                          logoUrl,
-                                          fit: BoxFit.contain,
-                                          filterQuality: FilterQuality.high,
-                                          loadingBuilder: (context, child, loadingProgress) {
-                                            if (loadingProgress == null) return child;
-                                            return const Center(child: CircularProgressIndicator());
-                                          },
-                                          errorBuilder: (context, error, stackTrace) {
-                                            return const Icon(Icons.broken_image, size: 40);
-                                          },
+                                       padding: const EdgeInsets.only(right: 10),
+                                        child: ClipRRect(
+                                          borderRadius: BorderRadius.circular(6),
+                                          child: Image.network(
+                                            logoUrl,
+                                            fit: BoxFit.contain,
+                                            filterQuality: FilterQuality.high,
+                                            loadingBuilder: (context, child, loadingProgress) {
+                                              if (loadingProgress == null) return child;
+                                              return const Center(child: CircularProgressIndicator());
+                                            },
+                                            errorBuilder: (context, error, stackTrace) {
+                                              return const Icon(Icons.broken_image, size: 40);
+                                            },
+                                          ),
                                         ),
                                       ),
                                     );

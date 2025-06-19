@@ -5,6 +5,7 @@ import 'package:get_storage/get_storage.dart';
 
 import 'controllers/theme_controller.dart';
 import 'controllers/navigation_controller.dart';
+import 'controllers/watchlist_controller.dart';
 
 import 'pages/movie/movie_details_page.dart';
 import 'widgets/base_scaffold.dart';
@@ -15,6 +16,7 @@ void main() async {
   await GetStorage.init(); 
   Get.put(ThemeController(), permanent: true);
   Get.put(NavigationController(), permanent: true);
+   Get.put(WatchlistController());
   runApp(const ProjectMovieApp());
 }
 

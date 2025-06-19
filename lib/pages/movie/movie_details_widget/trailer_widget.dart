@@ -44,6 +44,8 @@ class _MovieTrailerInlineWidgetState extends State<MovieTrailerInlineWidget> {
         if (!snapshot.hasData || snapshot.data == null) {
           return Container(
             height: 180,
+            margin: const EdgeInsets.symmetric(horizontal: 4),
+            padding: const EdgeInsets.all(10),
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(12),
               color: Theme.of(context).colorScheme.surface,
@@ -76,6 +78,8 @@ class _MovieTrailerInlineWidgetState extends State<MovieTrailerInlineWidget> {
           },
           child: Container(
             height: 180,
+            margin: const EdgeInsets.symmetric(horizontal: 4),
+            padding: const EdgeInsets.all(10),
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(12),
               color: Colors.black,

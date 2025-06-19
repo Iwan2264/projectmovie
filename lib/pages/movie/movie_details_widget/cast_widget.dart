@@ -16,8 +16,8 @@ class CastAndCrewContainer extends StatelessWidget {
       final castList = controller.castList;
 
       return Container(
-        margin: const EdgeInsets.symmetric(horizontal: 16),
-        padding: const EdgeInsets.all(16),
+        margin: const EdgeInsets.symmetric(horizontal: 4),
+        padding: EdgeInsets.fromLTRB(10, 10, 10, 10),
         width: double.infinity,
         decoration: BoxDecoration(
           color: Theme.of(context).colorScheme.surfaceContainerHighest,

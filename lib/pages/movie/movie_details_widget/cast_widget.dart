@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import '/controllers/movie_controller.dart';
+import '../../../controllers/movie_controllers/movie_controller.dart';
 
 class CastAndCrewContainer extends StatelessWidget {
   final int movieId;

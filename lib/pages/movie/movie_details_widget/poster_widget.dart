@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:projectmovie/models/movie.dart';
-import 'package:projectmovie/controllers/movie_controller.dart';
+import 'package:projectmovie/controllers/movie_controllers/movie_controller.dart';
 
 class MoviePosterDescription extends StatelessWidget {
   final Movie movie;
@@ -22,7 +22,7 @@ class MoviePosterDescription extends StatelessWidget {
       children: [
         // Poster and Description
         Padding(
-          padding: const EdgeInsets.all(16.0),
+          padding: const EdgeInsets.all(10),
           child: Row(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:projectmovie/controllers/movie_controller.dart';
+import 'package:projectmovie/controllers/movie_controllers/movie_controller.dart';
 import 'package:projectmovie/pages/movie/movie_list_widget/movie_search_widget.dart';
 import 'package:projectmovie/pages/movie/movie_list_widget/movie_list_widget.dart';
 

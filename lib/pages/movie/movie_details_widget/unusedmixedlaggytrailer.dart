@@ -3,7 +3,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:projectmovie/controllers/movie_controller.dart';
+import 'package:projectmovie/controllers/movie_controllers/movie_controller.dart';
 import 'package:youtube_player_iframe/youtube_player_iframe.dart' as iframe;
 import 'package:youtube_player_flutter/youtube_player_flutter.dart' as flutter;
 

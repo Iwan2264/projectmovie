@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:projectmovie/controllers/movie_controller.dart';
-import 'package:projectmovie/controllers/watchlist_controller.dart';
+import 'package:projectmovie/controllers/movie_controllers/movie_controller.dart';
+import 'package:projectmovie/controllers/movie_controllers/watchlist_controller.dart';
 
 import 'package:projectmovie/pages/movie/movie_details_widget/cast_widget.dart';
 import 'package:projectmovie/pages/movie/movie_details_widget/poster_widget.dart';
@@ -29,7 +29,8 @@ class MovieDetailsPage extends StatelessWidget {
     }
 
     final watchlistController = Get.find<WatchlistController>();
-    final isSaved = watchlistController.isInWatchlist(movie);
+    // ignore: unused_local_variable
+    final isSaved = watchlistController.isInWatchlist(movie); 
 
     return Scaffold(
       body: SafeArea(

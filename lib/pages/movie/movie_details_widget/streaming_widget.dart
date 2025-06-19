@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:projectmovie/controllers/streaming_controller.dart';
+import 'package:projectmovie/controllers/movie_controllers/streaming_controller.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class StreamingWidget extends StatelessWidget {

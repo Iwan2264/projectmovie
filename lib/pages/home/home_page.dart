@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:projectmovie/controllers/movie_controller.dart';
+import 'package:projectmovie/controllers/movie_controllers/movie_controller.dart';
 import 'package:projectmovie/controllers/navigation_controller.dart';
 import 'package:projectmovie/models/movie.dart';
 import 'package:projectmovie/pages/movie/movie_details_page.dart';

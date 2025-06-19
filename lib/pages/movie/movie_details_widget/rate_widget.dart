@@ -15,12 +15,12 @@ class RateButtonWidget extends StatelessWidget {
         children: [
           const Icon(
             Icons.star,
-            size: 20,
+            size: 30,
             color: Colors.amber, // Yellow star icon
           ),
-          const SizedBox(width: 8),
+          const SizedBox(width: 5),
           Text(
-            'Rate This',
+            'Rate This!',
             style: TextStyle(
               fontSize: 14,
               fontFamily: 'Inter',

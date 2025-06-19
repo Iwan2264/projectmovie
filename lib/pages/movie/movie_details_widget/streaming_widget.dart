@@ -15,7 +15,7 @@ class StreamingWidget extends StatelessWidget {
 
     return Obx(() {
       return Container(
-        margin: const EdgeInsets.symmetric(horizontal: 16),
+        margin: const EdgeInsets.symmetric(horizontal: 4),
         padding: EdgeInsets.fromLTRB(16, 10, 16, 10),
         width: double.infinity,
         decoration: BoxDecoration(

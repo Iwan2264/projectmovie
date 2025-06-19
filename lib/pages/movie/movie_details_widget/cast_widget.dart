@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import '../../../controllers/movie_controllers/movie_controller.dart';
+import 'package:projectmovie/widgets/maybemarqueetext.dart';
 
 class CastAndCrewContainer extends StatelessWidget {
   final int movieId;
@@ -17,7 +18,7 @@ class CastAndCrewContainer extends StatelessWidget {
 
       return Container(
         margin: const EdgeInsets.symmetric(horizontal: 4),
-        padding: EdgeInsets.fromLTRB(10, 10, 10, 10),
+        padding: const EdgeInsets.fromLTRB(10, 2, 5, 5),
         width: double.infinity,
         decoration: BoxDecoration(
           color: Theme.of(context).colorScheme.surfaceContainerHighest,
@@ -27,22 +28,22 @@ class CastAndCrewContainer extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             const Text(
-              'Cast & Crew',
+              'Cast & Crew!',
               style: TextStyle(
                 fontSize: 20,
                 fontWeight: FontWeight.w600,
                 fontFamily: 'Roboto',
               ),
             ),
-            const SizedBox(height: 12),
+            const SizedBox(height: 2),
             SizedBox(
-              height: 120,
+              height: 115,
               child: castList.isEmpty
                   ? const Center(child: Text("No cast available"))
                   : ListView.separated(
                       scrollDirection: Axis.horizontal,
                       itemCount: castList.length,
-                      separatorBuilder: (_, __) => const SizedBox(width: 12),
+                      separatorBuilder: (_, __) => const SizedBox(width: 10),
                       itemBuilder: (context, index) {
                         final cast = castList[index];
                         final profileUrl = cast.profilePath.isNotEmpty
@@ -53,8 +54,8 @@ class CastAndCrewContainer extends StatelessWidget {
                           mainAxisSize: MainAxisSize.min,
                           children: [
                             Container(
-                              width: 60,
-                              height: 60,
+                              width: 75,
+                              height: 75,
                               decoration: BoxDecoration(
                                 color: Theme.of(context).colorScheme.surfaceContainerHighest,
                                 borderRadius: BorderRadius.circular(6),
@@ -66,15 +67,23 @@ class CastAndCrewContainer extends StatelessWidget {
                                 ),
                               ),
                             ),
-                            const SizedBox(height: 6),
+                            const SizedBox(height: 1),
                             SizedBox(
-                              width: 60,
-                              child: Text(
-                                cast.name,
-                                maxLines: 1,
-                                overflow: TextOverflow.ellipsis,
-                                textAlign: TextAlign.center,
-                                style: const TextStyle(fontSize: 12),
+                              width: 75,
+                              child: Column(
+                                children: [
+                                  MaybeMarqueeText(
+                                    text: cast.character,
+                                    style: const TextStyle(fontSize: 12, color: Colors.grey),
+                                    maxWidth: 75,
+                                  ),
+                                  
+                                  MaybeMarqueeText(
+                                    text: cast.name,
+                                    style: const TextStyle(fontSize: 12, fontWeight: FontWeight.w600),
+                                    maxWidth: 75,
+                                  ),
+                                ],
                               ),
                             ),
                           ],

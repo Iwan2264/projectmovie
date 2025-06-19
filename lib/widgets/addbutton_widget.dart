@@ -32,9 +32,9 @@ class AddToWatchlistButton extends StatelessWidget {
       onTap: onTap,
       borderRadius: BorderRadius.circular(6),
       child: Container(
-        padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+        padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 5),
         decoration: BoxDecoration(
-          color: Theme.of(context).colorScheme.surfaceContainerHighest,
+          color: Theme.of(context).colorScheme.surfaceContainerHigh,
           borderRadius: BorderRadius.circular(6),
         ),
         child: Row(
@@ -42,10 +42,10 @@ class AddToWatchlistButton extends StatelessWidget {
           children: [
             Icon(
               icon,
-              size: 20,
+              size: 25,
               color: Theme.of(context).iconTheme.color,
             ),
-            const SizedBox(width: 8),
+            const SizedBox(width: 1),
             Text(
               label,
               style: TextStyle(

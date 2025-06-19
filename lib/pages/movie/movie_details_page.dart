@@ -4,7 +4,7 @@ import 'package:projectmovie/controllers/movie_controllers/movie_controller.dart
 import 'package:projectmovie/controllers/movie_controllers/watchlist_controller.dart';
 
 import 'package:projectmovie/pages/movie/movie_details_widget/cast_widget.dart';
-import 'package:projectmovie/pages/movie/movie_details_widget/poster_widget.dart';
+import 'package:projectmovie/pages/movie/movie_details_widget/description.dart';
 import 'package:projectmovie/pages/movie/movie_details_widget/rate_widget.dart';
 import 'package:projectmovie/pages/movie/movie_details_widget/trailer_widget.dart';
 import 'package:projectmovie/pages/movie/movie_details_widget/streaming_widget.dart';
@@ -73,7 +73,7 @@ class MovieDetailsPage extends StatelessWidget {
                     CastAndCrewContainer(movieId: movie.id),
                     const SizedBox(height: 10),
                     Container(
-                      margin: const EdgeInsets.symmetric(horizontal: 16),
+                      margin: const EdgeInsets.symmetric(horizontal: 4),
                       padding: const EdgeInsets.symmetric(horizontal: 16),
                       width: double.infinity,
                       height: 50,
@@ -89,23 +89,23 @@ class MovieDetailsPage extends StatelessWidget {
                             onTap: () => watchlistController.toggleWatchlist(movie),
                           ),
                           Padding(
-      padding:              const EdgeInsets.only(right: 16),
-                            child: RateButtonWidget(
-                              onTap: () {
-                                showDialog(
-                                  context: context,
-                                  builder: (_) => const AlertDialog(
-                                    title: Text("Rate Movie"),
-                                    content: Text("Add your custom star rating UI here."),
-                                 ),
-                                );
-                              },
+                            padding: const EdgeInsets.only(right: 30),
+                              child: RateButtonWidget(
+                                onTap: () {
+                                  showDialog(
+                                    context: context,
+                                    builder: (_) => const AlertDialog(
+                                      title: Text("Rate Movie"),
+                                      content: Text("Add your custom star rating UI here."),
+                                    ),
+                                  );
+                                },
+                              ),
                             ),
-                          ),
-                        ],
+                          ],
+                        ),
                       ),
-                    ),
-                    const SizedBox(height: 10),
+                      const SizedBox(height: 10),
 
                     StreamingWidget(movieId: movie.id),
                     const SizedBox(height: 10),

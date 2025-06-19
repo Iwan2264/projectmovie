@@ -16,7 +16,7 @@ void main() async {
   await GetStorage.init(); 
   Get.put(ThemeController(), permanent: true);
   Get.put(NavigationController(), permanent: true);
-   Get.put(WatchlistController());
+  Get.put(WatchlistController());
   runApp(const ProjectMovieApp());
 }
 

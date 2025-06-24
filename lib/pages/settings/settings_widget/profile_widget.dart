@@ -162,3 +162,4 @@ class ProfileInfoWidget extends StatelessWidget {
     );
   }
 }
+

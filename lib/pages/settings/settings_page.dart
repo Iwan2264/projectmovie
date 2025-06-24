@@ -5,7 +5,8 @@ import 'package:projectmovie/pages/settings/settings_widget/profile_widget.dart'
 import 'package:projectmovie/pages/settings/settings_widget/settings_subpages_widget.dart';
 
 class SettingsPage extends StatelessWidget {
-  final controller = Get.put(SettingsController());
+  SettingsPage({Key? key}) : super(key: key);
+  final SettingsController controller = Get.put(SettingsController());
 
   @override
   Widget build(BuildContext context) {

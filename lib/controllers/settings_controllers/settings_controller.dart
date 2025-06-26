@@ -7,7 +7,6 @@ import 'package:get_storage/get_storage.dart';
 import 'package:projectmovie/pages/settings/subpages/appearance_page.dart';
 import 'package:projectmovie/pages/settings/subpages/language_page.dart';
 import 'package:projectmovie/pages/settings/subpages/account_page.dart';
-import 'package:projectmovie/pages/settings/subpages/storage_page.dart';
 import 'package:projectmovie/pages/settings/subpages/help_support_page.dart';
 import 'package:projectmovie/pages/settings/subpages/about_page.dart';
 
@@ -34,9 +33,10 @@ class SettingsController extends GetxController {
 
   // Settings list (updated)
   var settings = <String>[
-    'Appearance & Language',
     'Account',
-    'Storage',
+    'Language',
+    'Appearance',
+    'Saved Lists',
     'Help & Support',
     'About',
     'Logout',
@@ -103,22 +103,19 @@ class SettingsController extends GetxController {
 
   void navigateToSetting(String setting) {
     switch (setting) {
-      case 'Saved Lists':
-        Get.snackbar('Saved Lists', 'Yet to Implement.',
-            snackPosition: SnackPosition.BOTTOM, duration: Duration(seconds: 2));
-        break;
-      case 'Appearance':
-        Get.to(() => AppearancePage());
+      case 'Account':
+        Get.to(() => AccountPage());
         break;
       case 'Language':
         Get.to(() => LanguagePage());
         break;
-      case 'Account':
-        Get.to(() => AccountPage());
+      case 'Appearance':
+        Get.to(() => AppearancePage());
         break;
-      case 'Storage':
-        Get.to(() => StoragePage());
-        break;
+      case 'Saved Lists':
+        Get.snackbar('Saved Lists', 'Yet to Implement.',
+            snackPosition: SnackPosition.BOTTOM, duration: Duration(seconds: 2));
+        break;                 
       case 'Help & Support':
         Get.to(() => HelpSupportPage());
         break;

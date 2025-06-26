@@ -29,13 +29,13 @@ final profileImage = Rxn<File>();
   // Settings list
   var settings = <String>[
     'Saved List',
-    'Device',
-    'Notifications',
     'Appearance',
     'Language',
-    'Privacy & Security',
-    'Storage',
-    'Logout Options',
+    'Account Settings',
+    'Storage & Downloads',
+    'Help & Support',
+    'About',
+    'Logout',
   ].obs;
 
 @override

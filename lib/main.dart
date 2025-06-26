@@ -21,7 +21,7 @@ void main() async {
 }
 
 class ProjectMovieApp extends StatelessWidget {
-  const ProjectMovieApp({super.key}); // ✅ const constructor
+  const ProjectMovieApp({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -38,9 +38,7 @@ class ProjectMovieApp extends StatelessWidget {
             brightness: Brightness.dark,
             primarySwatch: Colors.red,
           ),
-          themeMode: themeController.isDarkMode.value
-              ? ThemeMode.dark
-              : ThemeMode.light,
+          themeMode: themeController.themeMode.value,
 
           home: const BaseScaffold(),
 

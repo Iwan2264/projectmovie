@@ -3,7 +3,7 @@ import 'package:get/get.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class ThemeController extends GetxController {
-  final isDarkMode = false.obs;
+  final themeMode = ThemeMode.system.obs;
 
   @override
   void onInit() {
@@ -13,17 +13,15 @@ class ThemeController extends GetxController {
 
   Future<void> loadTheme() async {
     final prefs = await SharedPreferences.getInstance();
-    final savedTheme = prefs.getBool('isDarkMode') ?? false;
-    isDarkMode.value = savedTheme;
-    Get.changeThemeMode(savedTheme ? ThemeMode.dark : ThemeMode.light);
+    final modeIndex = prefs.getInt('themeMode') ?? ThemeMode.system.index;
+    themeMode.value = ThemeMode.values[modeIndex];
+    Get.changeThemeMode(themeMode.value);
   }
 
-  Future<void> toggleTheme() async {
-    isDarkMode.value = !isDarkMode.value;
+  Future<void> setTheme(ThemeMode mode) async {
+    themeMode.value = mode;
     final prefs = await SharedPreferences.getInstance();
-    await prefs.setBool('isDarkMode', isDarkMode.value);
-    Get.changeThemeMode(
-      isDarkMode.value ? ThemeMode.dark : ThemeMode.light,
-    );
+    await prefs.setInt('themeMode', mode.index);
+    Get.changeThemeMode(mode);
   }
 }

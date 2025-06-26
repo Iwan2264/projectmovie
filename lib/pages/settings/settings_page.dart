@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:projectmovie/controllers/settings_controllers/settings_controller.dart';
-import 'package:projectmovie/pages/settings/settings_widget/profile_widget.dart';
-import 'package:projectmovie/pages/settings/settings_widget/settings_subpages_widget.dart';
+import 'package:projectmovie/pages/settings/widget/profile_widget.dart';
+import 'package:projectmovie/pages/settings/widget/settings_subpages_widget.dart';
 
 class SettingsPage extends StatelessWidget {
   SettingsPage({Key? key}) : super(key: key);
@@ -50,7 +50,7 @@ class SettingsPage extends StatelessWidget {
 
                         const SizedBox(height: 24),
                         SubSettingsListWidget(
-                          settings: controller.settings,
+                          settings: controller.settings.toList(), // Convert RxList to List
                           onTap: (setting) {
                             //Get.snackbar('Clicked', 'Tapped on $setting');
                           },

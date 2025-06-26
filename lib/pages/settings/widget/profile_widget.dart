@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart'; // <-- Add this import
 import '../../../controllers/settings_controllers/settings_controller.dart';
 
 class ProfileInfoWidget extends StatelessWidget {
@@ -8,7 +9,8 @@ class ProfileInfoWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
+    // Wrap the widget in Obx to reactively update on Rx changes
+    return Obx(() => Padding(
       padding: const EdgeInsets.symmetric(horizontal: 16.0),
       child: Card(
         shape: RoundedRectangleBorder(
@@ -159,7 +161,6 @@ class ProfileInfoWidget extends StatelessWidget {
           ),
         ),
       ),
-    );
+    ));
   }
 }
-

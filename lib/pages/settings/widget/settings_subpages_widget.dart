@@ -12,14 +12,24 @@ class SubSettingsListWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: settings.map((setting) {
+    if (settings.isEmpty) {
+      return const Center(
+        child: Text('No settings available.'),
+      );
+    }
+    return ListView.separated(
+      shrinkWrap: true,
+      physics: const NeverScrollableScrollPhysics(),
+      itemCount: settings.length,
+      separatorBuilder: (context, index) => const Divider(height: 1),
+      itemBuilder: (context, index) {
+        final setting = settings[index];
         return ListTile(
           title: Text(setting),
           trailing: const Icon(Icons.chevron_right),
           onTap: () => onTap?.call(setting),
         );
-      }).toList(),
+      },
     );
   }
 }

@@ -47,13 +47,13 @@ class AboutPage extends StatelessWidget {
               'Developed by:',
               style: TextStyle(fontWeight: FontWeight.bold),
             ),
-            const Text('Your Name or Team Name'),
+            const Text('Safwan'),
             const SizedBox(height: 24),
             const Text(
               'Contact & Support',
               style: TextStyle(fontWeight: FontWeight.bold),
             ),
-            const Text('Email: support@projectmovie.app'),
+            const Text('Email: wansaf05@gmail.com'),
             const SizedBox(height: 24),
             Center(
               child: Text(

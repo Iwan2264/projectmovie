@@ -13,7 +13,7 @@ class HelpSupportPage extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: const [
             Text(
-              'For support, contact us at support@projectmovie.app.',
+              'For support, contact us at wansaf05@gmail.com',
               style: TextStyle(fontSize: 16),
             ),
             SizedBox(height: 16),

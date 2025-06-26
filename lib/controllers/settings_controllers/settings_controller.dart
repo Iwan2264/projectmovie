@@ -4,8 +4,8 @@ import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:get_storage/get_storage.dart';
 
-// Import your new settings pages directly:
-import 'package:projectmovie/pages/settings/subpages/appearance_language_page.dart';
+import 'package:projectmovie/pages/settings/subpages/appearance_page.dart';
+import 'package:projectmovie/pages/settings/subpages/language_page.dart';
 import 'package:projectmovie/pages/settings/subpages/account_page.dart';
 import 'package:projectmovie/pages/settings/subpages/storage_page.dart';
 import 'package:projectmovie/pages/settings/subpages/help_support_page.dart';
@@ -103,8 +103,15 @@ class SettingsController extends GetxController {
 
   void navigateToSetting(String setting) {
     switch (setting) {
-      case 'Appearance & Language':
-        Get.to(() => AppearanceLanguagePage());
+      case 'Saved Lists':
+        Get.snackbar('Saved Lists', 'Yet to Implement.',
+            snackPosition: SnackPosition.BOTTOM, duration: Duration(seconds: 2));
+        break;
+      case 'Appearance':
+        Get.to(() => AppearancePage());
+        break;
+      case 'Language':
+        Get.to(() => LanguagePage());
         break;
       case 'Account':
         Get.to(() => AccountPage());
@@ -119,7 +126,7 @@ class SettingsController extends GetxController {
         Get.to(() => AboutPage());
         break;
       case 'Logout':
-        // Implement your logout logic here
+        //logout logic
         Get.snackbar('Logout', 'You have been logged out.',
             snackPosition: SnackPosition.BOTTOM, duration: Duration(seconds: 2));
         break;

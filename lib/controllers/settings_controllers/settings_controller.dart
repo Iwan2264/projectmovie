@@ -3,8 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:get_storage/get_storage.dart';
-import 'package:projectmovie/utils/settings_routes.dart'; // Import your map here
-
+import 'package:projectmovie/utils/settings_routes.dart';
 class SettingsController extends GetxController {
   final box = GetStorage();
 

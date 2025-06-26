@@ -50,10 +50,8 @@ class SettingsPage extends StatelessWidget {
 
                         const SizedBox(height: 24),
                         SubSettingsListWidget(
-                          settings: controller.settings.toList(), // Convert RxList to List
-                          onTap: (setting) {
-                            //Get.snackbar('Clicked', 'Tapped on $setting');
-                          },
+                          settings: controller.settings.toList(),
+                          onTap: controller.navigateToSetting, // 👈 Now working
                         ),
                       ],
                     ),

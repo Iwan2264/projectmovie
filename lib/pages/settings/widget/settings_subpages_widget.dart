@@ -17,19 +17,22 @@ class SubSettingsListWidget extends StatelessWidget {
         child: Text('No settings available.'),
       );
     }
-    return ListView.separated(
-      shrinkWrap: true,
-      physics: const NeverScrollableScrollPhysics(),
-      itemCount: settings.length,
-      separatorBuilder: (context, index) => const Divider(height: 1),
-      itemBuilder: (context, index) {
+
+    return Column(
+      children: List.generate(settings.length, (index) {
         final setting = settings[index];
-        return ListTile(
-          title: Text(setting),
-          trailing: const Icon(Icons.chevron_right),
-          onTap: () => onTap?.call(setting),
+        return Column(
+          children: [
+            ListTile(
+              title: Text(setting),
+              trailing: const Icon(Icons.chevron_right),
+              onTap: () => onTap?.call(setting),
+            ),
+            if (index < settings.length - 1)
+              const Divider(height: 1),
+          ],
         );
-      },
+      }),
     );
   }
 }

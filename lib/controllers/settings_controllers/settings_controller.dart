@@ -3,7 +3,14 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:get_storage/get_storage.dart';
-import 'package:projectmovie/utils/settings_routes.dart';
+
+// Import your new settings pages directly:
+import 'package:projectmovie/pages/settings/subpages/appearance_language_page.dart';
+import 'package:projectmovie/pages/settings/subpages/account_page.dart';
+import 'package:projectmovie/pages/settings/subpages/storage_page.dart';
+import 'package:projectmovie/pages/settings/subpages/help_support_page.dart';
+import 'package:projectmovie/pages/settings/subpages/about_page.dart';
+
 class SettingsController extends GetxController {
   final box = GetStorage();
 
@@ -25,13 +32,11 @@ class SettingsController extends GetxController {
   final phoneController = TextEditingController();
   final formKey = GlobalKey<FormState>();
 
-  // Settings list
+  // Settings list (updated)
   var settings = <String>[
-    'Saved List',
-    'Appearance',
-    'Language',
-    'Account Settings',
-    'Storage & Downloads',
+    'Appearance & Language',
+    'Account',
+    'Storage',
     'Help & Support',
     'About',
     'Logout',
@@ -97,12 +102,30 @@ class SettingsController extends GetxController {
   }
 
   void navigateToSetting(String setting) {
-    final pageBuilder = settingsRoutes[setting];
-    if (pageBuilder != null) {
-      Get.to(() => pageBuilder());
-    } else {
-      Get.snackbar('Coming Soon', 'No page defined for "$setting"',
-          snackPosition: SnackPosition.BOTTOM);
+    switch (setting) {
+      case 'Appearance & Language':
+        Get.to(() => AppearanceLanguagePage());
+        break;
+      case 'Account':
+        Get.to(() => AccountPage());
+        break;
+      case 'Storage':
+        Get.to(() => StoragePage());
+        break;
+      case 'Help & Support':
+        Get.to(() => HelpSupportPage());
+        break;
+      case 'About':
+        Get.to(() => AboutPage());
+        break;
+      case 'Logout':
+        // Implement your logout logic here
+        Get.snackbar('Logout', 'You have been logged out.',
+            snackPosition: SnackPosition.BOTTOM, duration: Duration(seconds: 2));
+        break;
+      default:
+        Get.snackbar('Coming Soon', 'No page defined for "$setting"',
+            snackPosition: SnackPosition.BOTTOM);
     }
   }
 }

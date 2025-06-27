@@ -14,6 +14,15 @@ class AppearancePage extends StatelessWidget {
         title: const Text('Appearance'),
         centerTitle: true,
         elevation: 0,
+        actions: [
+          TextButton(
+            onPressed: () {
+              themeController.resetToDefaults();
+              Get.snackbar('Reset', 'Appearance settings reset to defaults');
+            },
+            child: const Text('Reset'),
+          ),
+        ],
       ),
       body: SingleChildScrollView(
         child: Column(
@@ -54,14 +63,6 @@ class AppearancePage extends StatelessWidget {
                       color: Theme.of(context).colorScheme.primary,
                     ),
                   ),
-                  const SizedBox(height: 8),
-                  Text(
-                    'Choose your preferred theme to personalize the app',
-                    style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                      color: Theme.of(context).colorScheme.onSurface.withOpacity(0.7),
-                    ),
-                    textAlign: TextAlign.center,
-                  ),
                 ],
               ),
             ),
@@ -72,125 +73,145 @@ class AppearancePage extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   // Theme Mode Section
-                  Row(
-                    children: [
-                      Icon(
-                        Icons.brightness_6_outlined,
-                        color: Theme.of(context).colorScheme.primary,
-                        size: 24,
-                      ),
-                      const SizedBox(width: 12),
-                      Text(
-                        'Theme Mode',
-                        style: Theme.of(context).textTheme.titleLarge?.copyWith(
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
-                    ],
-                  ),
-                  const SizedBox(height: 8),
-                  Text(
-                    'Select how you want the app to appear',
-                    style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                      color: Theme.of(context).colorScheme.onSurface.withOpacity(0.7),
-                    ),
-                  ),
-
-                  const SizedBox(height: 24),
-
-                  // Theme Options
+                  _buildSectionHeader(context, 'Theme Mode', Icons.brightness_6_outlined),
+                  const SizedBox(height: 16),
+                  
                   Obx(() => Column(
                     children: [
                       _buildThemeOption(
                         context,
                         title: 'System Default',
-                        subtitle: 'Follow your device theme settings',
                         icon: Icons.smartphone_outlined,
                         value: ThemeMode.system,
                         groupValue: themeController.themeMode.value,
-                        onChanged: (value) {
-                          if (value != null) {
-                            themeController.setThemeImmediate(value);
-                          }
-                        },
+                        onChanged: (value) => themeController.setThemeImmediate(value!),
                       ),
-
                       const SizedBox(height: 12),
-
                       _buildThemeOption(
                         context,
                         title: 'Light Mode',
-                        subtitle: 'Classic bright appearance',
                         icon: Icons.light_mode_outlined,
                         value: ThemeMode.light,
                         groupValue: themeController.themeMode.value,
-                        onChanged: (value) {
-                          if (value != null) {
-                            themeController.setThemeImmediate(value);
-                          }
-                        },
+                        onChanged: (value) => themeController.setThemeImmediate(value!),
                       ),
-
                       const SizedBox(height: 12),
-
                       _buildThemeOption(
                         context,
                         title: 'Dark Mode',
-                        subtitle: 'Easy on the eyes in low light',
                         icon: Icons.dark_mode_outlined,
                         value: ThemeMode.dark,
                         groupValue: themeController.themeMode.value,
-                        onChanged: (value) {
-                          if (value != null) {
-                            themeController.setThemeImmediate(value);
-                          }
-                        },
+                        onChanged: (value) => themeController.setThemeImmediate(value!),
                       ),
                     ],
                   )),
 
                   const SizedBox(height: 32),
 
-                  // Preview Section
-                  Container(
-                    width: double.infinity,
-                    padding: const EdgeInsets.all(20),
-                    decoration: BoxDecoration(
-                      color: Theme.of(context).colorScheme.surfaceVariant.withOpacity(0.3),
-                      borderRadius: BorderRadius.circular(16),
-                      border: Border.all(
-                        color: Theme.of(context).colorScheme.outline.withOpacity(0.2),
-                      ),
-                    ),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Row(
-                          children: [
-                            Icon(
-                              Icons.preview_outlined,
-                              color: Theme.of(context).colorScheme.primary,
-                              size: 20,
+                  // Color Scheme Section
+                  _buildSectionHeader(context, 'Color Theme', Icons.color_lens_outlined),
+                  const SizedBox(height: 16),
+                  
+                  Obx(() => Wrap(
+                    spacing: 12,
+                    runSpacing: 12,
+                    children: themeController.colorSchemes.entries.map((entry) {
+                      final isSelected = themeController.selectedColorScheme.value == entry.key;
+                      return GestureDetector(
+                        onTap: () => themeController.setColorScheme(entry.key),
+                        child: Container(
+                          width: 60,
+                          height: 60,
+                          decoration: BoxDecoration(
+                            color: entry.value,
+                            borderRadius: BorderRadius.circular(12),
+                            border: Border.all(
+                              color: isSelected 
+                                  ? Theme.of(context).colorScheme.primary
+                                  : Colors.transparent,
+                              width: 3,
                             ),
-                            const SizedBox(width: 8),
-                            Text(
-                              'Current Theme',
-                              style: Theme.of(context).textTheme.titleMedium?.copyWith(
-                                fontWeight: FontWeight.w600,
-                              ),
-                            ),
-                          ],
-                        ),
-                        const SizedBox(height: 12),
-                        Obx(() => Text(
-                          _getThemeDescription(themeController.themeMode.value),
-                          style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                            color: Theme.of(context).colorScheme.onSurface.withOpacity(0.8),
                           ),
-                        )),
-                      ],
-                    ),
-                  ),
+                          child: isSelected
+                              ? const Icon(Icons.check, color: Colors.white, size: 24)
+                              : null,
+                        ),
+                      );
+                    }).toList(),
+                  )),
+
+                  const SizedBox(height: 32),
+
+                  // Font Size Section
+                  _buildSectionHeader(context, 'Font Size', Icons.text_fields_outlined),
+                  const SizedBox(height: 16),
+                  
+                  Obx(() => Column(
+                    children: themeController.fontSizeMultipliers.entries.map((entry) {
+                      final isSelected = themeController.fontSize.value == entry.key;
+                      return Padding(
+                        padding: const EdgeInsets.only(bottom: 8),
+                        child: ListTile(
+                          title: Text(
+                            _getFontSizeDisplayName(entry.key),
+                            style: TextStyle(
+                              fontSize: 16 * entry.value,
+                              fontWeight: isSelected ? FontWeight.w600 : FontWeight.normal,
+                            ),
+                          ),
+                          trailing: isSelected 
+                              ? Icon(Icons.check, color: Theme.of(context).colorScheme.primary)
+                              : null,
+                          onTap: () => themeController.setFontSize(entry.key),
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(12),
+                            side: BorderSide(
+                              color: isSelected 
+                                  ? Theme.of(context).colorScheme.primary
+                                  : Theme.of(context).colorScheme.outline.withOpacity(0.2),
+                            ),
+                          ),
+                        ),
+                      );
+                    }).toList(),
+                  )),
+
+                  const SizedBox(height: 32),
+
+                  // Accessibility Section
+                  _buildSectionHeader(context, 'Accessibility', Icons.accessibility_outlined),
+                  const SizedBox(height: 16),
+                  
+                  Obx(() => Column(
+                    children: [
+                      SwitchListTile(
+                        title: const Text('High Contrast'),
+                        subtitle: const Text('Improved visibility for better readability'),
+                        value: themeController.isHighContrast.value,
+                        onChanged: (_) => themeController.toggleHighContrast(),
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(12),
+                          side: BorderSide(
+                            color: Theme.of(context).colorScheme.outline.withOpacity(0.2),
+                          ),
+                        ),
+                      ),
+                      const SizedBox(height: 12),
+                      SwitchListTile(
+                        title: const Text('Reduced Animations'),
+                        subtitle: const Text('Minimize motion for better experience'),
+                        value: themeController.reducedAnimations.value,
+                        onChanged: (_) => themeController.toggleReducedAnimations(),
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(12),
+                          side: BorderSide(
+                            color: Theme.of(context).colorScheme.outline.withOpacity(0.2),
+                          ),
+                        ),
+                      ),
+                    ],
+                  )),
                 ],
               ),
             ),
@@ -200,10 +221,24 @@ class AppearancePage extends StatelessWidget {
     );
   }
 
+  Widget _buildSectionHeader(BuildContext context, String title, IconData icon) {
+    return Row(
+      children: [
+        Icon(icon, color: Theme.of(context).colorScheme.primary, size: 24),
+        const SizedBox(width: 12),
+        Text(
+          title,
+          style: Theme.of(context).textTheme.titleLarge?.copyWith(
+            fontWeight: FontWeight.bold,
+          ),
+        ),
+      ],
+    );
+  }
+
   Widget _buildThemeOption(
     BuildContext context, {
     required String title,
-    required String subtitle,
     required IconData icon,
     required ThemeMode value,
     required ThemeMode groupValue,
@@ -244,27 +279,11 @@ class AppearancePage extends StatelessWidget {
               ),
             ),
             const SizedBox(width: 12),
-            Expanded(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    title,
-                    style: Theme.of(context).textTheme.titleMedium?.copyWith(
-                      fontWeight: isSelected ? FontWeight.w600 : FontWeight.w500,
-                      color: isSelected 
-                          ? Theme.of(context).colorScheme.primary
-                          : null,
-                    ),
-                  ),
-                  const SizedBox(height: 2),
-                  Text(
-                    subtitle,
-                    style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                      color: Theme.of(context).colorScheme.onSurface.withOpacity(0.6),
-                    ),
-                  ),
-                ],
+            Text(
+              title,
+              style: Theme.of(context).textTheme.titleMedium?.copyWith(
+                fontWeight: isSelected ? FontWeight.w600 : FontWeight.w500,
+                color: isSelected ? Theme.of(context).colorScheme.primary : null,
               ),
             ),
           ],
@@ -278,18 +297,18 @@ class AppearancePage extends StatelessWidget {
     );
   }
 
-  String _getThemeDescription(ThemeMode themeMode) {
-    switch (themeMode) {
-      case ThemeMode.system:
-        return 'Automatically adapts to your device\'s system theme settings. '
-               'Changes between light and dark based on your device preferences.';
-      case ThemeMode.light:
-        return 'Always uses light theme with bright colors and dark text. '
-               'Perfect for well-lit environments and daytime usage.';
-      case ThemeMode.dark:
-        return 'Always uses dark theme with muted colors and light text. '
-               'Ideal for low-light conditions and easier on the eyes.';
+  String _getFontSizeDisplayName(String key) {
+    switch (key) {
+      case 'small':
+        return 'Small';
+      case 'medium':
+        return 'Medium';
+      case 'large':
+        return 'Large';
+      case 'extra_large':
+        return 'Extra Large';
+      default:
+        return key;
     }
   }
 }
-  

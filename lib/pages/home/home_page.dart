@@ -18,7 +18,7 @@ class HomePage extends StatelessWidget {
     final movieController = Get.find<MovieController>();
 
     return Scaffold(
-      backgroundColor: Theme.of(context).colorScheme.background,
+      backgroundColor: Theme.of(context).colorScheme.surfaceContainer,
       appBar: AppBar(
         elevation: 2,
         title: const Text(

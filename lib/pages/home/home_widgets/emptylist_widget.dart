@@ -10,21 +10,22 @@ class EmptyWatchlistWidget extends StatelessWidget {
     final navController = Get.find<NavigationController>();
 
     return Container(
-      height: 140,
+      padding: const EdgeInsets.all(16),
       decoration: BoxDecoration(
-        color: Theme.of(context).colorScheme.surfaceVariant.withOpacity(0.3),
+        color: Theme.of(context).colorScheme.surfaceContainerHighest.withValues(alpha: 0.3),
         borderRadius: BorderRadius.circular(16),
         border: Border.all(
-          color: Theme.of(context).colorScheme.outline.withOpacity(0.2),
+          color: Theme.of(context).colorScheme.outline.withValues(alpha: 0.2),
         ),
       ),
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
+        mainAxisSize: MainAxisSize.min,
         children: [
           Icon(
             Icons.bookmark_add_outlined,
             size: 48,
-            color: Theme.of(context).colorScheme.primary.withOpacity(0.6),
+            color: Theme.of(context).colorScheme.primary.withValues(alpha: 0.6),
           ),
           const SizedBox(height: 8),
           Text(
@@ -35,7 +36,7 @@ class EmptyWatchlistWidget extends StatelessWidget {
           Text(
             'Start adding movies you want to watch!',
             style: Theme.of(context).textTheme.bodySmall?.copyWith(
-              color: Theme.of(context).colorScheme.onSurface.withOpacity(0.6),
+              color: Theme.of(context).colorScheme.primary.withValues(alpha: 0.6),
             ),
             textAlign: TextAlign.center,
           ),
@@ -47,7 +48,7 @@ class EmptyWatchlistWidget extends StatelessWidget {
             icon: const Icon(Icons.explore_outlined, size: 18),
             label: const Text('Browse Movies'),
             style: ElevatedButton.styleFrom(
-              backgroundColor: Theme.of(context).colorScheme.primary.withOpacity(0.1),
+              backgroundColor: Theme.of(context).colorScheme.primary.withValues(alpha: 0.1),
               foregroundColor: Theme.of(context).colorScheme.primary,
               elevation: 0,
             ),

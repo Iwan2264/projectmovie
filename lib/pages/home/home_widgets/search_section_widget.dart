@@ -1,4 +1,3 @@
-// filepath: c:\Users\wansa\Documents\Flutter Project\projectmovie\lib\pages\home\home_widgets\search_section_widget.dart
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -12,7 +11,7 @@ class SearchSectionWidget extends StatelessWidget {
         // Search Bar
         Container(
           decoration: BoxDecoration(
-            color: Theme.of(context).colorScheme.surfaceVariant.withOpacity(0.5),
+            color: Theme.of(context).colorScheme.surfaceContainerHighest.withValues(alpha: 0.5),
             borderRadius: BorderRadius.circular(12),
           ),
           child: TextField(
@@ -46,7 +45,7 @@ class SearchSectionWidget extends StatelessWidget {
                         onSelected: (selected) {
                           Get.snackbar('Filter', 'Selected: $genre');
                         },
-                        backgroundColor: Theme.of(context).colorScheme.surfaceVariant.withOpacity(0.5),
+                        backgroundColor: Theme.of(context).colorScheme.surfaceContainerHighest.withValues(alpha: 0.5),
                       ),
                     ))
                 .toList(),

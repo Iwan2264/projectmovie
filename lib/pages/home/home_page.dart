@@ -36,61 +36,63 @@ class HomePage extends StatelessWidget {
           ),
         ],
       ),
-      body: RefreshIndicator(
-        onRefresh: () async => await movieController.fetchPopularMovies(),
-        child: ListView(
-          padding: const EdgeInsets.all(16),
-          children: [
-            // Dynamic Header
-            const DynamicHeaderWidget(),
-            const SizedBox(height: 24),
+      body: SafeArea(
+        child: RefreshIndicator(
+          onRefresh: () async => await movieController.fetchPopularMovies(),
+          child: ListView(
+            padding: const EdgeInsets.all(16),
+            children: [
+              // Dynamic Header
+              const DynamicHeaderWidget(),
+              const SizedBox(height: 24),
 
-            // Search Section
-            const SearchSectionWidget(),
-            const SizedBox(height: 24),
+              // Search Section
+              const SearchSectionWidget(),
+              const SizedBox(height: 24),
 
-            // Stats Section
-            const StatsSectionWidget(),
-            const SizedBox(height: 32),
+              // Stats Section
+              const StatsSectionWidget(),
+              const SizedBox(height: 32),
 
-            // Popular Movies Section
-            SectionHeaderWidget(
-              title: '🔥 Popular Now',
-              onTap: () => navController.selectedIndex.value = 0,
-            ),
-            const SizedBox(height: 12),
-            Obx(() {
-              final movies = movieController.movies.take(10).toList();
-              if (movies.isEmpty) {
-                return const Center(child: CircularProgressIndicator());
-              }
+              // Popular Movies Section
+              SectionHeaderWidget(
+                title: '🔥 Popular Now',
+                onTap: () => navController.selectedIndex.value = 0,
+              ),
+              const SizedBox(height: 12),
+              Obx(() {
+                final movies = movieController.movies.take(10).toList();
+                if (movies.isEmpty) {
+                  return const Center(child: CircularProgressIndicator());
+                }
 
-              return SizedBox(
-                height: 220,
-                child: ListView.separated(
-                  scrollDirection: Axis.horizontal,
-                  itemCount: movies.length,
-                  separatorBuilder: (_, __) => const SizedBox(width: 12),
-                  itemBuilder: (_, index) {
-                    final movie = movies[index];
-                    return EnhancedMovieCardWidget(movie: movie);
-                  },
-                ),
-              );
-            }),
+                return SizedBox(
+                  height: 220,
+                  child: ListView.separated(
+                    scrollDirection: Axis.horizontal,
+                    itemCount: movies.length,
+                    separatorBuilder: (_, __) => const SizedBox(width: 12),
+                    itemBuilder: (_, index) {
+                      final movie = movies[index];
+                      return EnhancedMovieCardWidget(movie: movie);
+                    },
+                  ),
+                );
+              }),
 
-            const SizedBox(height: 32),
+              const SizedBox(height: 32),
 
-            // Watchlist Section
-            SectionHeaderWidget(
-              title: '🎯 Your Watchlist',
-              onTap: () => navController.selectedIndex.value = 1,
-            ),
-            const SizedBox(height: 12),
-            const EmptyWatchlistWidget(),
+              // Watchlist Section
+              SectionHeaderWidget(
+                title: '🎯 Your Watchlist',
+                onTap: () => navController.selectedIndex.value = 1,
+              ),
+              const SizedBox(height: 12),
+              const EmptyWatchlistWidget(),
 
-            const SizedBox(height: 20),
-          ],
+              const SizedBox(height: 20),
+            ],
+          ),
         ),
       ),
     );

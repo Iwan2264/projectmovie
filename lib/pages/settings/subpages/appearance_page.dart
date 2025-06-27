@@ -27,7 +27,7 @@ class AppearancePage extends StatelessWidget {
                   begin: Alignment.topCenter,
                   end: Alignment.bottomCenter,
                   colors: [
-                    Theme.of(context).colorScheme.primary.withOpacity(0.1),
+                    Theme.of(context).colorScheme.primary.withValues(alpha: 0.1),
                     Theme.of(context).colorScheme.surface,
                   ],
                 ),
@@ -37,7 +37,7 @@ class AppearancePage extends StatelessWidget {
                   Container(
                     padding: const EdgeInsets.all(16),
                     decoration: BoxDecoration(
-                      color: Theme.of(context).colorScheme.primary.withOpacity(0.1),
+                      color: Theme.of(context).colorScheme.onSurface.withValues(alpha: 0.1),
                       borderRadius: BorderRadius.circular(16),
                     ),
                     child: Icon(
@@ -58,7 +58,7 @@ class AppearancePage extends StatelessWidget {
                   Text(
                     'Choose a theme for the app',
                     style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                      color: Theme.of(context).colorScheme.onSurface.withOpacity(0.7),
+                      color: Theme.of(context).colorScheme.onSurface.withValues(alpha: 0.7),
                     ),
                     textAlign: TextAlign.center,
                   ),
@@ -92,7 +92,7 @@ class AppearancePage extends StatelessWidget {
                   Text(
                     'Choose how the app should look',
                     style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                      color: Theme.of(context).colorScheme.onSurface.withOpacity(0.7),
+                      color: Theme.of(context).colorScheme.onSurface.withValues(alpha: 0.7),
                     ),
                   ),
 
@@ -171,13 +171,13 @@ class AppearancePage extends StatelessWidget {
     return Container(
       decoration: BoxDecoration(
         color: isSelected 
-            ? Theme.of(context).colorScheme.primaryContainer.withOpacity(0.3)
+            ? Theme.of(context).colorScheme.primaryContainer.withValues(alpha: 0.3)
             : Theme.of(context).colorScheme.surface,
         borderRadius: BorderRadius.circular(12),
         border: Border.all(
           color: isSelected 
               ? Theme.of(context).colorScheme.primary
-              : Theme.of(context).colorScheme.outline.withOpacity(0.2),
+              : Theme.of(context).colorScheme.outline.withValues(alpha: 0.2),
           width: isSelected ? 2 : 1,
         ),
       ),
@@ -188,8 +188,8 @@ class AppearancePage extends StatelessWidget {
               padding: const EdgeInsets.all(8),
               decoration: BoxDecoration(
                 color: isSelected 
-                    ? Theme.of(context).colorScheme.primary.withOpacity(0.1)
-                    : Theme.of(context).colorScheme.surfaceVariant.withOpacity(0.5),
+                    ? Theme.of(context).colorScheme.primary.withValues(alpha: 0.1)
+                    : Theme.of(context).colorScheme.surfaceContainerHighest.withValues(alpha: 0.5),
                 borderRadius: BorderRadius.circular(8),
               ),
               child: Icon(
@@ -197,7 +197,8 @@ class AppearancePage extends StatelessWidget {
                 size: 20,
                 color: isSelected 
                     ? Theme.of(context).colorScheme.primary
-                    : Theme.of(context).colorScheme.onSurface.withOpacity(0.7),
+                    : Theme.of(context).colorScheme.onSurface.withValues(alpha: 0.7),
+
               ),
             ),
             const SizedBox(width: 12),
@@ -218,7 +219,8 @@ class AppearancePage extends StatelessWidget {
                   Text(
                     subtitle,
                     style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                      color: Theme.of(context).colorScheme.onSurface.withOpacity(0.6),
+                      color: Theme.of(context).colorScheme.onSurface.withValues(alpha: 0.6),
+
                     ),
                   ),
                 ],

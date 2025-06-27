@@ -24,7 +24,7 @@ class AboutPage extends StatelessWidget {
                   begin: Alignment.topCenter,
                   end: Alignment.bottomCenter,
                   colors: [
-                    Theme.of(context).colorScheme.primary.withOpacity(0.1),
+                    Theme.of(context).colorScheme.primary.withAlpha((0.1 * 255).toInt()),
                     Theme.of(context).colorScheme.surface,
                   ],
                 ),
@@ -34,7 +34,7 @@ class AboutPage extends StatelessWidget {
                   Container(
                     padding: const EdgeInsets.all(20),
                     decoration: BoxDecoration(
-                      color: Theme.of(context).colorScheme.primary.withOpacity(0.1),
+                      color: Theme.of(context).colorScheme.primary.withAlpha((0.1 * 255).toInt()),
                       borderRadius: BorderRadius.circular(20),
                     ),
                     child: Icon(
@@ -137,7 +137,7 @@ class AboutPage extends StatelessWidget {
                     width: double.infinity,
                     padding: const EdgeInsets.all(20),
                     decoration: BoxDecoration(
-                      color: Theme.of(context).colorScheme.surfaceVariant.withOpacity(0.3),
+                      color: Theme.of(context).colorScheme.surfaceContainerHighest.withValues(alpha: 0.3),
                       borderRadius: BorderRadius.circular(12),
                     ),
                     child: Column(
@@ -152,7 +152,7 @@ class AboutPage extends StatelessWidget {
                         Text(
                           'All rights reserved',
                           style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                            color: Theme.of(context).colorScheme.onSurface.withOpacity(0.6),
+                            color: Theme.of(context).colorScheme.onSurface.withValues(alpha: 0.6),
                           ),
                         ),
                       ],
@@ -189,7 +189,7 @@ class AboutPage extends StatelessWidget {
             description,
             style: Theme.of(context).textTheme.bodyLarge?.copyWith(
               height: 1.6,
-              color: Theme.of(context).colorScheme.onSurface.withOpacity(0.8),
+              color: Theme.of(context).colorScheme.onSurface.withValues(alpha: 0.8),
             ),
           ),
         if (features != null) ...[
@@ -224,10 +224,10 @@ class AboutPage extends StatelessWidget {
       width: double.infinity,
       padding: const EdgeInsets.all(20),
       decoration: BoxDecoration(
-        color: Theme.of(context).colorScheme.surfaceVariant.withOpacity(0.3),
+        color: Theme.of(context).colorScheme.surfaceContainerHighest.withValues(alpha: 0.3),
         borderRadius: BorderRadius.circular(16),
         border: Border.all(
-          color: Theme.of(context).colorScheme.outline.withOpacity(0.2),
+          color: Theme.of(context).colorScheme.onSurface.withValues(alpha: 0.2),
         ),
       ),
       child: Column(
@@ -264,7 +264,7 @@ class AboutPage extends StatelessWidget {
               '$label:',
               style: Theme.of(context).textTheme.bodyMedium?.copyWith(
                 fontWeight: FontWeight.w500,
-                color: Theme.of(context).colorScheme.onSurface.withOpacity(0.7),
+                color: Theme.of(context).colorScheme.onSurface.withValues(alpha: 0.7),
               ),
             ),
           ),
@@ -293,7 +293,7 @@ class AboutPage extends StatelessWidget {
                 label,
                 style: Theme.of(context).textTheme.bodySmall?.copyWith(
                   fontWeight: FontWeight.w500,
-                  color: Theme.of(context).colorScheme.onSurface.withOpacity(0.7),
+                  color: Theme.of(context).colorScheme.onSurface.withValues(alpha: 0.7),
                 ),
               ),
               const SizedBox(height: 2),

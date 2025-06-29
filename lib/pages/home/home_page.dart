@@ -3,7 +3,6 @@ import 'package:get/get.dart';
 import 'package:projectmovie/controllers/movie_controllers/movie_controller.dart';
 import 'package:projectmovie/controllers/navigation_controller.dart';
 import 'package:projectmovie/pages/home/home_widgets/dynamic_header_widget.dart';
-import 'package:projectmovie/pages/home/home_widgets/search_section_widget.dart';
 import 'package:projectmovie/pages/home/home_widgets/stat_widget.dart';
 import 'package:projectmovie/pages/home/home_widgets/moviecard_widget.dart';
 import 'package:projectmovie/pages/home/home_widgets/emptylist_widget.dart';
@@ -22,19 +21,11 @@ class HomePage extends StatelessWidget {
       appBar: AppBar(
         elevation: 2,
         title: const Text(
-          '🎬 ProjectMovie',
+          '🎬 Project Movie List',
           style: TextStyle(fontWeight: FontWeight.w700),
         ),
         centerTitle: true,
         backgroundColor: Theme.of(context).colorScheme.surface,
-        actions: [
-          IconButton(
-            icon: const Icon(Icons.settings_outlined),
-            onPressed: () {
-              navController.selectedIndex.value = 2; // Settings tab
-            },
-          ),
-        ],
       ),
       body: SafeArea(
         child: RefreshIndicator(
@@ -44,10 +35,6 @@ class HomePage extends StatelessWidget {
             children: [
               // Dynamic Header
               const DynamicHeaderWidget(),
-              const SizedBox(height: 24),
-
-              // Search Section
-              const SearchSectionWidget(),
               const SizedBox(height: 24),
 
               // Stats Section

@@ -28,7 +28,7 @@ class MovieListPage extends GetView<MovieController> {
               
               final screenWidth = MediaQuery.of(context).size.width;
               return ListView.builder(
-                padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                padding: const EdgeInsets.symmetric(horizontal: 2.0),
                 itemCount: controller.movies.length,
                 itemBuilder: (_, index) {
                   final movie = controller.movies[index];

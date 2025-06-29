@@ -17,11 +17,8 @@ dependencies:
   get_storage: ^2.1.1
   flutter_inappwebview: ^6.1.5
   youtube_player_iframe: ^5.2.1
-  youtube_player_flutter: ^9.1.1
   url_launcher: ^6.2.5
   marquee: ^2.2.3
-  flutter_colorpicker: ^1.0.3
-
 
   
 dev_dependencies:

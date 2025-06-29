@@ -14,7 +14,7 @@ class WatchlistPage extends StatelessWidget {
 
     return Scaffold(
       appBar: AppBar(
-        title: const Text("🎯 Your Watchlist"),
+        title: const Text("Safwan's Watchlist"),
         centerTitle: true,
         backgroundColor: Theme.of(context).colorScheme.surface,
       ),

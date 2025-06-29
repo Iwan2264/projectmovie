@@ -13,6 +13,7 @@ class CastAndCrewContainer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final colorScheme = Theme.of(context).colorScheme;
     return Obx(() {
       final castList = controller.castList;
 
@@ -21,25 +22,29 @@ class CastAndCrewContainer extends StatelessWidget {
         padding: const EdgeInsets.fromLTRB(10, 2, 5, 5),
         width: double.infinity,
         decoration: BoxDecoration(
-          color: Theme.of(context).colorScheme.surfaceContainerHighest,
+          color: colorScheme.surfaceContainerHighest,
           borderRadius: BorderRadius.circular(12),
         ),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            const Text(
+            Text(
               'Cast & Crew!',
-              style: TextStyle(
-                fontSize: 20,
-                fontWeight: FontWeight.w600,
-                fontFamily: 'Roboto',
-              ),
+              style: Theme.of(context).textTheme.titleMedium?.copyWith(
+                    fontWeight: FontWeight.w600,
+                    fontFamily: 'Roboto',
+                  ),
             ),
             const SizedBox(height: 2),
             SizedBox(
               height: 115,
               child: castList.isEmpty
-                  ? const Center(child: Text("No cast available"))
+                  ? Center(
+                      child: Text(
+                        "No cast available",
+                        style: Theme.of(context).textTheme.bodyMedium,
+                      ),
+                    )
                   : ListView.separated(
                       scrollDirection: Axis.horizontal,
                       itemCount: castList.length,
@@ -57,8 +62,8 @@ class CastAndCrewContainer extends StatelessWidget {
                               width: 75,
                               height: 75,
                               decoration: BoxDecoration(
-                                color: Theme.of(context).colorScheme.surfaceContainerHighest,
-                                borderRadius: BorderRadius.circular(6),
+                                color: colorScheme.surfaceContainerHigh,
+                                borderRadius: BorderRadius.circular(12),
                                 image: DecorationImage(
                                   image: profileUrl != null
                                       ? NetworkImage(profileUrl)
@@ -74,13 +79,16 @@ class CastAndCrewContainer extends StatelessWidget {
                                 children: [
                                   MaybeMarqueeText(
                                     text: cast.character,
-                                    style: const TextStyle(fontSize: 12, color: Colors.grey),
+                                    style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                                        color: colorScheme.onSurfaceVariant,
+                                      ),
                                     maxWidth: 75,
                                   ),
-                                  
                                   MaybeMarqueeText(
                                     text: cast.name,
-                                    style: const TextStyle(fontSize: 12, fontWeight: FontWeight.w600),
+                                    style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                                        fontWeight: FontWeight.w600,
+                                      ),
                                     maxWidth: 75,
                                   ),
                                 ],

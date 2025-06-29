@@ -31,6 +31,7 @@ class _MovieTrailerInlineWidgetState extends State<MovieTrailerInlineWidget> {
 
   @override
   Widget build(BuildContext context) {
+    final colorScheme = Theme.of(context).colorScheme;
     return FutureBuilder<String?>(
       future: _trailerFuture,
       builder: (context, snapshot) {
@@ -48,9 +49,14 @@ class _MovieTrailerInlineWidgetState extends State<MovieTrailerInlineWidget> {
             padding: const EdgeInsets.all(10),
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(12),
-              color: Theme.of(context).colorScheme.surface,
+              color: colorScheme.surfaceContainerHighest,
             ),
-            child: const Center(child: Text("Trailer not available")),
+            child: Center(
+              child: Text(
+                "Trailer not available",
+                style: Theme.of(context).textTheme.bodyMedium,
+              ),
+            ),
           );
         }
 
@@ -60,7 +66,6 @@ class _MovieTrailerInlineWidgetState extends State<MovieTrailerInlineWidget> {
           _ytController ??= YoutubePlayerController.fromVideoId(
             videoId: videoKey,
             autoPlay: true,
-            //showControls: true,
           );
 
           return ClipRRect(
@@ -76,16 +81,21 @@ class _MovieTrailerInlineWidgetState extends State<MovieTrailerInlineWidget> {
           onTap: () {
             setState(() => _isPlaying = true);
           },
+          borderRadius: BorderRadius.circular(12),
           child: Container(
             height: 180,
             margin: const EdgeInsets.symmetric(horizontal: 4),
             padding: const EdgeInsets.all(10),
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(12),
-              color: Colors.black,
+              color: colorScheme.surfaceContainerHighest,
             ),
-            child: const Center(
-              child: Icon(Icons.play_circle_fill, size: 50, color: Colors.white),
+            child: Center(
+              child: Icon(
+                Icons.play_circle_fill,
+                size: 50,
+                color: colorScheme.primary,
+              ),
             ),
           ),
         );

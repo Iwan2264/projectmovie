@@ -16,12 +16,13 @@ class MoviePosterDescription extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final controller = Get.find<MovieController>();
+    final colorScheme = Theme.of(context).colorScheme;
 
     return Container(
-    margin: const EdgeInsets.symmetric(horizontal: 4),
-    padding: const EdgeInsets.fromLTRB(5, 5, 5, 5),
+      margin: const EdgeInsets.symmetric(horizontal: 4),
+      padding: const EdgeInsets.fromLTRB(5, 5, 5, 5),
       child: Column(
-       crossAxisAlignment: CrossAxisAlignment.start,
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           // Poster and Description
           Padding(
@@ -31,25 +32,29 @@ class MoviePosterDescription extends StatelessWidget {
               children: [
                 // Poster
                 movie.posterPath.isNotEmpty
-                  ? ClipRRect(
-                    borderRadius: BorderRadius.circular(6),
-                    child: Image.network(
-                      'https://image.tmdb.org/t/p/w500${movie.posterPath}',
-                      width: width * 0.3,
-                      height: 180,
-                      fit: BoxFit.cover,
-                    ),
-                  )
-                : Container(
-                    width: width * 0.3,
-                    height: 180,
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(6),
-                      color: Theme.of(context).colorScheme.surfaceContainerHighest,
-                    ),
-                    child: const Center(child: Text("Poster")),
-                  ),
-
+                    ? ClipRRect(
+                        borderRadius: BorderRadius.circular(12),
+                        child: Image.network(
+                          'https://image.tmdb.org/t/p/w500${movie.posterPath}',
+                          width: width * 0.3,
+                          height: 180,
+                          fit: BoxFit.cover,
+                        ),
+                      )
+                    : Container(
+                        width: width * 0.3,
+                        height: 180,
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(12),
+                          color: colorScheme.surfaceContainerHighest,
+                        ),
+                        child: Center(
+                          child: Text(
+                            "Poster",
+                            style: Theme.of(context).textTheme.bodyMedium,
+                          ),
+                        ),
+                      ),
                 // Description
                 Padding(
                   padding: const EdgeInsets.fromLTRB(8, 5, 5, 5),
@@ -60,10 +65,9 @@ class MoviePosterDescription extends StatelessWidget {
                       children: [
                         Text(
                           movie.overview,
-                          style: TextStyle(
-                            fontSize: 14,
-                            color: Theme.of(context).colorScheme.onSurface,
-                          ),
+                          style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                                color: colorScheme.onSurface,
+                              ),
                           maxLines: 9,
                           overflow: TextOverflow.ellipsis,
                         ),
@@ -74,31 +78,27 @@ class MoviePosterDescription extends StatelessWidget {
               ],
             ),
           ),
-
           // Genres
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 10),
-              child: Center(
-                child: Wrap(
+            child: Center(
+              child: Wrap(
                 spacing: 10,
                 children: movie.genreIds.take(5).map((id) {
                   final genre = controller.getGenreNameById(id);
                   return Chip(
-                    backgroundColor: Get.theme.colorScheme.surfaceContainerHighest,
+                    backgroundColor: colorScheme.surfaceContainerHigh,
                     label: Text(
                       genre,
-                      style: TextStyle(
-                        color: Get.theme.colorScheme.onSurfaceVariant,
-                        fontSize: 14,
-                        fontFamily: 'Inter',
-                      ),
+                      style: Theme.of(context).textTheme.labelLarge?.copyWith(
+                            color: colorScheme.onSurfaceVariant,
+                          ),
                     ),
                   );
                 }).toList(),
               ),
             ),
           ),
-        
         ],
       ),
     );

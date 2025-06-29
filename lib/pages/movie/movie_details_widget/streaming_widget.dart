@@ -12,14 +12,15 @@ class StreamingWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     final controller = Get.put(StreamingController());
     controller.fetchPlatforms(movieId);
+    final colorScheme = Theme.of(context).colorScheme;
 
     return Obx(() {
       return Container(
         margin: const EdgeInsets.symmetric(horizontal: 4),
-        padding: EdgeInsets.fromLTRB(16, 10, 16, 10),
+        padding: const EdgeInsets.fromLTRB(16, 10, 16, 10),
         width: double.infinity,
         decoration: BoxDecoration(
-          color: Theme.of(context).colorScheme.surfaceContainerHighest,
+          color: colorScheme.surfaceContainerHighest,
           borderRadius: BorderRadius.circular(12),
         ),
         child: controller.isLoading.value
@@ -29,7 +30,7 @@ class StreamingWidget extends StatelessWidget {
                     'This title isn’t streaming in your region!',
                     style: Theme.of(context).textTheme.bodyMedium?.copyWith(
                           fontFamily: 'Roboto',
-                          color: Theme.of(context).colorScheme.error,
+                          color: colorScheme.error,
                         ),
                     textAlign: TextAlign.center,
                   )
@@ -38,7 +39,7 @@ class StreamingWidget extends StatelessWidget {
                         'Available in Cinemas!',
                         style: Theme.of(context).textTheme.bodyMedium?.copyWith(
                               fontFamily: 'Roboto',
-                              color: Theme.of(context).colorScheme.primary,
+                              color: colorScheme.primary,
                             ),
                         textAlign: TextAlign.center,
                       )
@@ -72,9 +73,9 @@ class StreamingWidget extends StatelessWidget {
                                         }
                                       },
                                       child: Padding(
-                                       padding: const EdgeInsets.only(right: 10),
+                                        padding: const EdgeInsets.only(right: 10),
                                         child: ClipRRect(
-                                          borderRadius: BorderRadius.circular(6),
+                                          borderRadius: BorderRadius.circular(8),
                                           child: Image.network(
                                             logoUrl,
                                             fit: BoxFit.contain,
@@ -84,7 +85,7 @@ class StreamingWidget extends StatelessWidget {
                                               return const Center(child: CircularProgressIndicator());
                                             },
                                             errorBuilder: (context, error, stackTrace) {
-                                              return const Icon(Icons.broken_image, size: 40);
+                                              return Icon(Icons.broken_image, size: 40, color: colorScheme.error);
                                             },
                                           ),
                                         ),

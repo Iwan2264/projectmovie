@@ -17,6 +17,9 @@ class MovieListItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+    final colorScheme = theme.colorScheme;
+
     return GestureDetector(
       onTap: () => Get.to(() => MovieDetailsPage(movieId: movie.id)),
       child: Center(
@@ -26,14 +29,16 @@ class MovieListItem extends StatelessWidget {
           height: 100,
           child: Stack(
             children: [
+              // Card background
               Container(
                 width: screenWidth * 0.98,
                 height: 100,
                 decoration: BoxDecoration(
-                  color: const Color(0xFFC7C7C7),
+                  color: colorScheme.surfaceContainerHighest,
                   borderRadius: BorderRadius.circular(6),
                 ),
               ),
+              // Poster
               Positioned(
                 left: 2,
                 top: 2,
@@ -41,7 +46,7 @@ class MovieListItem extends StatelessWidget {
                   width: 68,
                   height: 96,
                   decoration: BoxDecoration(
-                    color: const Color(0xFFBDBDBD),
+                    color: colorScheme.onSurface.withAlpha((0.12 * 255).round()),
                     borderRadius: BorderRadius.circular(6),
                     image: movie.posterPath.isNotEmpty
                         ? DecorationImage(
@@ -49,17 +54,18 @@ class MovieListItem extends StatelessWidget {
                             fit: BoxFit.cover,
                           )
                         : null,
-                    boxShadow: const [
+                    boxShadow: [
                       BoxShadow(
-                        color: Color(0x3F000000),
+                        color: colorScheme.shadow.withAlpha((0.25 * 255).round()),
                         blurRadius: 4,
-                        offset: Offset(0, 4),
+                        offset: const Offset(0, 4),
                         spreadRadius: 1,
                       )
                     ],
                   ),
                 ),
               ),
+              // Release Date
               Positioned(
                 left: screenWidth * 0.825,
                 top: 4,
@@ -67,16 +73,17 @@ class MovieListItem extends StatelessWidget {
                   width: screenWidth * 0.14,
                   child: Text(
                     formatDate(movie.releaseDate),
-                    style: const TextStyle(
-                      color: Color(0xFF212121),
-                      fontSize: 10,
-                      fontFamily: 'Roboto Slab',
+                    style: theme.textTheme.labelSmall?.copyWith(
+                      color: colorScheme.onSurface.withAlpha((0.8 * 255).round()),
                       fontWeight: FontWeight.w600,
+                      fontFamily: 'Roboto Slab',
+                      fontSize: 10,
                     ),
                     textAlign: TextAlign.right,
                   ),
                 ),
               ),
+              // Add to List button
               Positioned(
                 left: screenWidth * 0.62,
                 top: 61,
@@ -84,22 +91,23 @@ class MovieListItem extends StatelessWidget {
                   width: screenWidth * 0.35,
                   height: 35,
                   decoration: BoxDecoration(
-                    color: const Color(0xFF666666),
+                    color: colorScheme.primary,
                     borderRadius: BorderRadius.circular(6),
                   ),
-                  child: const Center(
+                  child: Center(
                     child: Text(
                       'Add to List',
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 12,
-                        fontFamily: 'Poppins',
+                      style: theme.textTheme.labelMedium?.copyWith(
+                        color: colorScheme.onPrimary,
                         fontWeight: FontWeight.w600,
+                        fontFamily: 'Poppins',
+                        fontSize: 12,
                       ),
                     ),
                   ),
                 ),
               ),
+              // Rating bar and score
               Positioned(
                 left: screenWidth * 0.225,
                 top: 60,
@@ -109,29 +117,30 @@ class MovieListItem extends StatelessWidget {
                     children: [
                       RatingBarIndicator(
                         rating: movie.voteAverage / 2,
-                        itemBuilder: (context, index) => const Icon(
+                        itemBuilder: (context, index) => Icon(
                           Icons.star,
                           color: Colors.amber,
                         ),
                         itemCount: 5,
                         itemSize: 20.0,
-                        unratedColor: Colors.grey[300],
+                        unratedColor: colorScheme.outlineVariant.withAlpha((0.3 * 255).round()),
                         direction: Axis.horizontal,
                       ),
                       const SizedBox(width: 6),
                       Text(
                         movie.voteAverage.toStringAsFixed(1),
-                        style: const TextStyle(
-                          color: Color(0xFF212121),
+                        style: theme.textTheme.bodySmall?.copyWith(
+                          color: colorScheme.onSurface,
+                          fontWeight: FontWeight.w600,
                           fontSize: 12,
                           fontFamily: 'Roboto',
-                          fontWeight: FontWeight.w600,
                         ),
                       ),
                     ],
                   ),
                 ),
               ),
+              // User Count
               Positioned(
                 left: screenWidth * 0.20,
                 top: 80,
@@ -139,16 +148,17 @@ class MovieListItem extends StatelessWidget {
                   width: screenWidth * 0.4,
                   child: Text(
                     'User Count TBA',
-                    style: const TextStyle(
-                      color: Color(0xFF212121),
-                      fontSize: 10,
-                      fontFamily: 'Roboto Slab',
+                    style: theme.textTheme.labelSmall?.copyWith(
+                      color: colorScheme.onSurface.withAlpha((0.8 * 255).round()),
                       fontWeight: FontWeight.w600,
+                      fontFamily: 'Roboto Slab',
+                      fontSize: 10,
                     ),
                     textAlign: TextAlign.center,
                   ),
                 ),
               ),
+              // Overview
               Positioned(
                 left:screenWidth * 0.21, 
                 top: 25,
@@ -157,17 +167,18 @@ class MovieListItem extends StatelessWidget {
                   height: 30,
                   child: Text(
                     movie.overview,
-                    style: const TextStyle(
-                      color: Color(0xFF212121),
-                      fontSize: 11,
-                      fontFamily: 'Roboto Condensed',
+                    style: theme.textTheme.bodySmall?.copyWith(
+                      color: colorScheme.onSurface,
                       fontWeight: FontWeight.w300,
+                      fontFamily: 'Roboto Condensed',
+                      fontSize: 11,
                     ),
                     maxLines: 2,
                     overflow: TextOverflow.ellipsis,
                   ),
                 ),
               ),
+              // Movie title
               Positioned(
                 left: screenWidth * 0.205,
                 top: 3.5,
@@ -176,11 +187,11 @@ class MovieListItem extends StatelessWidget {
                   height: 20,
                   child: Text(
                     movie.title,
-                    style: const TextStyle(
-                      color: Color(0xFF212121),
-                      fontSize: 16,
-                      fontFamily: 'Roboto',
+                    style: theme.textTheme.titleMedium?.copyWith(
+                      color: colorScheme.onSurface,
                       fontWeight: FontWeight.w700,
+                      fontFamily: 'Roboto',
+                      fontSize: 16,
                     ),
                     overflow: TextOverflow.ellipsis,
                   ),

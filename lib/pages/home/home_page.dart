@@ -43,7 +43,7 @@ class HomePage extends StatelessWidget {
 
               // Popular Movies Section
               SectionHeaderWidget(
-                title: '🔥 Popular Now',
+                title: 'Popular Now',
                 onTap: () => navController.selectedIndex.value = 0,
               ),
               const SizedBox(height: 12),
@@ -71,7 +71,7 @@ class HomePage extends StatelessWidget {
 
               // Watchlist Section
               SectionHeaderWidget(
-                title: '🎯 Your Watchlist',
+                title: 'Your Watchlist',
                 onTap: () => navController.selectedIndex.value = 1,
               ),
               const SizedBox(height: 12),

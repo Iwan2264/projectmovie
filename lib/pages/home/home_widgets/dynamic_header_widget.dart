@@ -18,8 +18,8 @@ class DynamicHeaderWidget extends StatelessWidget {
         decoration: BoxDecoration(
           gradient: LinearGradient(
             colors: [
-              Theme.of(context).colorScheme.primary.withOpacity(0.1),
-              Theme.of(context).colorScheme.secondary.withOpacity(0.05),
+              Theme.of(context).colorScheme.primary.withAlpha((0.1 * 255).toInt()),
+              Theme.of(context).colorScheme.secondary.withAlpha((0.05 * 255).toInt()),
             ],
             begin: Alignment.topLeft,
             end: Alignment.bottomRight,
@@ -51,7 +51,7 @@ class DynamicHeaderWidget extends StatelessWidget {
                   Text(
                     _getGreeting(),
                     style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                          color: Theme.of(context).colorScheme.onSurface.withOpacity(0.7),
+                            color: Theme.of(context).colorScheme.onSurface.withAlpha((0.7 * 255).toInt()),
                         ),
                   ),
                   Text(

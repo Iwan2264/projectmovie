@@ -20,6 +20,7 @@ dependencies:
   youtube_player_flutter: ^9.1.1
   url_launcher: ^6.2.5
   marquee: ^2.2.3
+  flutter_colorpicker: ^1.0.3
 
 
   

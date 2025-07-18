@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:projectmovie/controllers/movie_controllers/watchlist_controller.dart';
-import 'package:projectmovie/pages/watchlist/watchlist_overview_page.dart';
+import 'package:projectmovie/pages/watchlist/watchlist_page.dart';
 import 'package:projectmovie/pages/movie/movie_details_page.dart';
 import 'package:projectmovie/pages/movie/movie_list_page.dart';
 
@@ -28,7 +28,7 @@ class WatchlistSectionWidget extends StatelessWidget {
               ),
             ),
             TextButton(
-              onPressed: () => Get.to(() => const WatchlistOverviewPage()),
+              onPressed: () => Get.to(() => const WatchlistPage()),
               child: const Text('See All'),
               style: TextButton.styleFrom(
                 foregroundColor: Theme.of(context).colorScheme.primary,

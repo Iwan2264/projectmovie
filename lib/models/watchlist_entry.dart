@@ -1,37 +1,32 @@
-import 'package:projectmovie/models/movie.dart';
+import 'package:hive/hive.dart';
+import 'movie.dart';
 
-enum WatchStatus { planToWatch, watched, rewatched, dropped }
+part 'watchlist_entry.g.dart';
 
-class WatchlistEntry {
+@HiveType(typeId: 1)
+class WatchlistEntry extends HiveObject {
+  @HiveField(0)
   final Movie movie;
+  @HiveField(1)
   WatchStatus status;
-  double score;
-  double watchTime;
+  @HiveField(2)
+  double? score; // user's rating for this movie
 
   WatchlistEntry({
     required this.movie,
-    this.status = WatchStatus.planToWatch,
-    this.score = 0.0,
-    this.watchTime = 0.0,
+    required this.status,
+    this.score,
   });
+}
 
-  Map<String, dynamic> toJson() => {
-        'movie': _originalMovieJson,
-        'status': status.index,
-        'score': score,
-        'watchTime': watchTime,
-      };
-
-  final Map<String, dynamic> _originalMovieJson = {};
-
-  static WatchlistEntry fromApiJson(Map<String, dynamic> movieJson) => WatchlistEntry(
-        movie: Movie.fromJson(movieJson),
-      ).._originalMovieJson.addAll(movieJson);
-
-  static WatchlistEntry fromJson(Map<String, dynamic> json) => WatchlistEntry(
-        movie: Movie.fromJson(Map<String, dynamic>.from(json['movie'])),
-        status: WatchStatus.values[json['status']],
-        score: (json['score'] ?? 0.0).toDouble(),
-        watchTime: (json['watchTime'] ?? 0.0).toDouble(),
-      ).._originalMovieJson.addAll(Map<String, dynamic>.from(json['movie']));
+@HiveType(typeId: 2)
+enum WatchStatus {
+  @HiveField(0)
+  planToWatch,
+  @HiveField(1)
+  watched,
+  @HiveField(2)
+  rewatched,
+  @HiveField(3)
+  dropped,
 }

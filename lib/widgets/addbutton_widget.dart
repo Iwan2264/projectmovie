@@ -23,40 +23,46 @@ class AddToListButton extends StatelessWidget {
           onPressed: () => watchlistController.addToWatchlist(movie),
         );
       } else {
-        return PopupMenuButton<WatchStatus>(
-          child: ElevatedButton.icon(
-            icon: Icon(_statusIcon(status!)),
-            label: Text(_statusLabel(status)),
-            onPressed: null,
-          ),
-          onSelected: (newStatus) {
-            watchlistController.setStatus(movie, newStatus);
+        return ElevatedButton.icon(
+          icon: Icon(_statusIcon(status ?? WatchStatus.planToWatch)),
+          label: Text(_statusLabel(status ?? WatchStatus.planToWatch)),
+          onPressed: () async {
+            final selected = await showMenu<WatchStatus?>(
+              context: context,
+              position: RelativeRect.fromLTRB(100, 100, 100, 100),
+              items: [
+                PopupMenuItem(
+                  value: WatchStatus.planToWatch,
+                  child: Text('Plan to Watch'),
+                ),
+                PopupMenuItem(
+                  value: WatchStatus.watched,
+                  child: Text('Watched'),
+                ),
+                PopupMenuItem(
+                  value: WatchStatus.rewatched,
+                  child: Text('Rewatched'),
+                ),
+                PopupMenuItem(
+                  value: WatchStatus.dropped,
+                  child: Text('Dropped'),
+                ),
+                const PopupMenuDivider(),
+                PopupMenuItem<WatchStatus?>(
+                  value: null,
+                  child: Text(
+                    'Remove from List',
+                    style: const TextStyle(color: Colors.red),
+                  ),
+                ),
+              ],
+            );
+            if (selected == null) {
+              watchlistController.removeFromWatchlist(movie);
+            } else {
+              watchlistController.setStatus(movie, selected);
+            }
           },
-          itemBuilder: (context) => <PopupMenuEntry<WatchStatus>>[
-            PopupMenuItem(
-              value: WatchStatus.planToWatch,
-              child: Text('Plan to Watch'),
-            ),
-            PopupMenuItem(
-              value: WatchStatus.watched,
-              child: Text('Watched'),
-            ),
-            PopupMenuItem(
-              value: WatchStatus.rewatched,
-              child: Text('Rewatched'),
-            ),
-            PopupMenuItem(
-              value: WatchStatus.dropped,
-              child: Text('Dropped'),
-            ),
-            PopupMenuItem(
-              child: Text(
-                'Remove from List',
-                style: TextStyle(color: Colors.red),
-              ),
-              onTap: () => watchlistController.removeFromWatchlist(movie),
-            ),
-          ],
         );
       }
     });

@@ -2,6 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:get_storage/get_storage.dart';
+import 'package:hive_flutter/hive_flutter.dart';
+import 'package:projectmovie/models/movie.dart';
+import 'package:projectmovie/models/watchlist_entry.dart';
 
 import 'controllers/settings_controllers/theme_controller.dart';
 import 'controllers/navigation_controller.dart';
@@ -12,6 +15,11 @@ import 'widgets/base_scaffold.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  await Hive.initFlutter();
+  Hive.registerAdapter(MovieAdapter());
+  Hive.registerAdapter(WatchlistEntryAdapter());
+  Hive.registerAdapter(WatchStatusAdapter());
+  await Hive.openBox<WatchlistEntry>('watchlist');
   await dotenv.load();
   await GetStorage.init(); 
   Get.put(ThemeController(), permanent: true);

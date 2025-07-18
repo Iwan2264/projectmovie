@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:projectmovie/controllers/movie_controllers/watchlist_controller.dart';
-import 'package:projectmovie/pages/watchlist/widgets/watchlist_stats.dart';
+import 'package:projectmovie/pages/watchlist/widgets/watchlist_stats_chart.dart';
 import 'package:projectmovie/pages/watchlist/watchlist_page.dart';
 import 'package:projectmovie/pages/movie/movie_list_page.dart';
 
@@ -42,7 +42,7 @@ class HomeWatchlistWidget extends StatelessWidget {
         Obx(() {
           final watchlist = watchlistController.watchlist;
           if (watchlist.isEmpty) {
-            // Empty state
+            // Empty List
             return Center(
               child: Container(
                 width: screenWidth * 0.98,
@@ -104,15 +104,14 @@ class HomeWatchlistWidget extends StatelessWidget {
               ),
             );
           }
-          // Non-empty: show stats + preview (NO POSTERS)
+          // Non-empty List
           return Column(
             children: [
-              WatchlistStats(
+              WatchlistStatsChart(
                 watched: watchlistController.watched,
                 planToWatch: watchlistController.planToWatch,
                 rewatched: watchlistController.rewatched,
                 dropped: watchlistController.dropped,
-                total: watchlistController.total,
               ),
             ],
           );

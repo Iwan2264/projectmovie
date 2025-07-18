@@ -1,85 +1,94 @@
 import 'package:get/get.dart';
-import 'package:get_storage/get_storage.dart';
+import 'package:hive/hive.dart';
 import 'package:projectmovie/models/movie.dart';
 import 'package:projectmovie/models/watchlist_entry.dart';
 
 class WatchlistController extends GetxController {
+  late Box<WatchlistEntry> _watchlistBox;
   final RxList<WatchlistEntry> _watchlist = <WatchlistEntry>[].obs;
-  final GetStorage _storage = GetStorage();
-  static const _storageKey = 'watchlist';
 
   List<WatchlistEntry> get watchlist => _watchlist;
 
   @override
   void onInit() {
     super.onInit();
+    _watchlistBox = Hive.box<WatchlistEntry>('watchlist');
     _loadWatchlist();
-    ever(_watchlist, (_) => _saveWatchlist());
   }
 
   void _loadWatchlist() {
-    final rawList = _storage.read<List>(_storageKey) ?? [];
-    final loaded = rawList.map((e) => WatchlistEntry.fromJson(Map<String, dynamic>.from(e))).toList();
-    _watchlist.assignAll(loaded);
+    _watchlist.assignAll(_watchlistBox.values);
   }
 
-  void _saveWatchlist() {
-    final rawList = _watchlist.map((e) => e.toJson()).toList();
-    _storage.write(_storageKey, rawList);
-  }
-
-  /// Use this if you have the original movie JSON from the API
-  void addToWatchlistFromJson(Map<String, dynamic> movieJson) {
-    final movie = Movie.fromJson(movieJson);
+  void addToWatchlist(Movie movie, {WatchStatus status = WatchStatus.planToWatch, double? score}) {
     if (!isInWatchlist(movie)) {
-      _watchlist.add(WatchlistEntry.fromApiJson(movieJson));
-      Get.snackbar("Added", "${movie.title} added to your watchlist");
-    }
-  }
-
-  /// Use this if you only have Movie object and accept limited serialization
-  void addToWatchlist(Movie movie) {
-    if (!isInWatchlist(movie)) {
-      _watchlist.add(WatchlistEntry(movie: movie));
+      final entry = WatchlistEntry(movie: movie, status: status, score: score);
+      _watchlistBox.put(movie.id, entry);
+      _watchlist.add(entry);
       Get.snackbar("Added", "${movie.title} added to your watchlist");
     }
   }
 
   void removeFromWatchlist(Movie movie) {
-    _watchlist.removeWhere((entry) => entry.movie.id == movie.id);
+    _watchlistBox.delete(movie.id);
+    _watchlist.removeWhere((e) => e.movie.id == movie.id);
     Get.snackbar("Removed", "${movie.title} removed from your watchlist");
   }
 
   bool isInWatchlist(Movie movie) {
-    return _watchlist.any((entry) => entry.movie.id == movie.id);
+    return _watchlist.any((e) => e.movie.id == movie.id);
   }
 
   WatchStatus? getStatus(Movie movie) {
-    return _watchlist.firstWhereOrNull((entry) => entry.movie.id == movie.id)?.status;
+    final entry = _watchlist.firstWhereOrNull((e) => e.movie.id == movie.id);
+    return entry?.status;
   }
 
   void setStatus(Movie movie, WatchStatus status) {
-    final entry = _watchlist.firstWhereOrNull((entry) => entry.movie.id == movie.id);
+    final entry = _watchlist.firstWhereOrNull((e) => e.movie.id == movie.id);
     if (entry != null) {
       entry.status = status;
+      entry.save();
       _watchlist.refresh();
+      Get.snackbar("Updated", "${movie.title} status updated");
     }
+  }
+
+  double? getScore(Movie movie) {
+    final entry = _watchlist.firstWhereOrNull((e) => e.movie.id == movie.id);
+    return entry?.score;
   }
 
   void setScore(Movie movie, double score) {
-    final entry = _watchlist.firstWhereOrNull((entry) => entry.movie.id == movie.id);
+    final entry = _watchlist.firstWhereOrNull((e) => e.movie.id == movie.id);
     if (entry != null) {
       entry.score = score;
+      // Auto-mark as watched when a score is set
+      if (entry.status != WatchStatus.watched && entry.status != WatchStatus.rewatched) {
+        entry.status = WatchStatus.watched;
+      }
+      entry.save();
       _watchlist.refresh();
+      Get.snackbar("Updated", "${movie.title} score updated");
     }
   }
 
-  void setWatchTime(Movie movie, double hours) {
-    final entry = _watchlist.firstWhereOrNull((entry) => entry.movie.id == movie.id);
-    if (entry != null) {
-      entry.watchTime = hours;
-      _watchlist.refresh();
-    }
+  // ---- STATISTICS ----
+  double get meanScore {
+    final scoredEntries = _watchlist.where((e) => e.score != null).toList();
+    if (scoredEntries.isEmpty) return 0.0;
+    final totalScore = scoredEntries.map((e) => e.score!).reduce((a, b) => a + b);
+    return totalScore / scoredEntries.length;
+  }
+
+  /// Watch time: sum of runtimes for all "watched" movies, in hours.
+  double get watchTime {
+    final watchedEntries = _watchlist.where((e) => e.status == WatchStatus.watched || e.status == WatchStatus.rewatched);
+    final totalMinutes = watchedEntries.fold<int>(
+      0,
+      (sum, entry) => sum + (entry.movie.runtime),
+    );
+    return totalMinutes / 60.0;
   }
 
   int get watched => _watchlist.where((e) => e.status == WatchStatus.watched).length;
@@ -87,13 +96,4 @@ class WatchlistController extends GetxController {
   int get rewatched => _watchlist.where((e) => e.status == WatchStatus.rewatched).length;
   int get dropped => _watchlist.where((e) => e.status == WatchStatus.dropped).length;
   int get total => _watchlist.length;
-
-  double get watchTime =>
-      _watchlist.fold(0.0, (sum, entry) => sum + entry.watchTime);
-
-  double get meanScore {
-    final scores = _watchlist.map((e) => e.score).where((s) => s > 0).toList();
-    if (scores.isEmpty) return 0;
-    return scores.reduce((a, b) => a + b) / scores.length;
-  }
 }

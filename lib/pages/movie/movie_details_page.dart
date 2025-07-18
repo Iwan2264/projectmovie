@@ -84,15 +84,7 @@ class MovieDetailsPage extends StatelessWidget {
                           Padding(
                             padding: const EdgeInsets.only(right: 30),
                               child: RateButtonWidget(
-                                onTap: () {
-                                  showDialog(
-                                    context: context,
-                                    builder: (_) => const AlertDialog(
-                                      title: Text("Rate Movie"),
-                                      content: Text("Add your custom star rating UI here."),
-                                    ),
-                                  );
-                                },
+                                movie: movie,
                               ),
                             ),
                           ],

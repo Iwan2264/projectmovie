@@ -1,63 +1,90 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:projectmovie/controllers/movie_controllers/watchlist_controller.dart';
+import 'package:projectmovie/models/movie.dart';
+import 'package:projectmovie/models/watchlist_entry.dart';
 
-class AddToWatchlistButton extends StatelessWidget {
-  final VoidCallback onTap;
-  final bool isInWatchlist;
-  final bool isWatched;
+class AddToListButton extends StatelessWidget {
+  final Movie movie;
 
-  const AddToWatchlistButton({
-    super.key,
-    required this.onTap,
-    required this.isInWatchlist,
-    this.isWatched = false,
-  });
+  const AddToListButton({super.key, required this.movie});
 
   @override
   Widget build(BuildContext context) {
-    String label;
-    IconData icon;
+    final watchlistController = Get.find<WatchlistController>();
+    return Obx(() {
+      final isInList = watchlistController.isInWatchlist(movie);
+      final status = watchlistController.getStatus(movie);
 
-    if (isWatched) {
-      label = 'Watched';
-      icon = Icons.visibility_rounded;
-    } else if (isInWatchlist) {
-      label = 'Added to List';
-      icon = Icons.check;
-    } else {
-      label = 'Add to Watchlist';
-      icon = Icons.add;
-    }
-
-    return InkWell(
-      onTap: onTap,
-      borderRadius: BorderRadius.circular(6),
-      child: Container(
-        padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 5),
-        decoration: BoxDecoration(
-          color: Theme.of(context).colorScheme.surfaceContainerHigh,
-          borderRadius: BorderRadius.circular(6),
-        ),
-        child: Row(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            Icon(
-              icon,
-              size: 25,
-              color: Theme.of(context).iconTheme.color,
+      if (!isInList) {
+        return ElevatedButton.icon(
+          icon: const Icon(Icons.add),
+          label: const Text('Add to List'),
+          onPressed: () => watchlistController.addToWatchlist(movie),
+        );
+      } else {
+        return PopupMenuButton<WatchStatus>(
+          child: ElevatedButton.icon(
+            icon: Icon(_statusIcon(status!)),
+            label: Text(_statusLabel(status)),
+            onPressed: null,
+          ),
+          onSelected: (newStatus) {
+            watchlistController.setStatus(movie, newStatus);
+          },
+          itemBuilder: (context) => <PopupMenuEntry<WatchStatus>>[
+            PopupMenuItem(
+              value: WatchStatus.planToWatch,
+              child: Text('Plan to Watch'),
             ),
-            const SizedBox(width: 1),
-            Text(
-              label,
-              style: TextStyle(
-                fontSize: 14,
-                fontFamily: 'Inter',
-                color: Theme.of(context).textTheme.bodyMedium?.color,
-                fontWeight: FontWeight.w500,
+            PopupMenuItem(
+              value: WatchStatus.watched,
+              child: Text('Watched'),
+            ),
+            PopupMenuItem(
+              value: WatchStatus.rewatched,
+              child: Text('Rewatched'),
+            ),
+            PopupMenuItem(
+              value: WatchStatus.dropped,
+              child: Text('Dropped'),
+            ),
+            PopupMenuItem(
+              child: Text(
+                'Remove from List',
+                style: TextStyle(color: Colors.red),
               ),
+              onTap: () => watchlistController.removeFromWatchlist(movie),
             ),
           ],
-        ),
-      ),
-    );
+        );
+      }
+    });
+  }
+
+  String _statusLabel(WatchStatus status) {
+    switch (status) {
+      case WatchStatus.planToWatch:
+        return "Plan to Watch";
+      case WatchStatus.watched:
+        return "Watched";
+      case WatchStatus.rewatched:
+        return "Rewatched";
+      case WatchStatus.dropped:
+        return "Dropped";
+    }
+  }
+
+  IconData _statusIcon(WatchStatus status) {
+    switch (status) {
+      case WatchStatus.planToWatch:
+        return Icons.bookmark_add_outlined;
+      case WatchStatus.watched:
+        return Icons.visibility_rounded;
+      case WatchStatus.rewatched:
+        return Icons.repeat;
+      case WatchStatus.dropped:
+        return Icons.remove_circle_outline;
+    }
   }
 }

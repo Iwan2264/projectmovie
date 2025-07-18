@@ -1,17 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:projectmovie/controllers/movie_controllers/watchlist_controller.dart';
+import 'package:projectmovie/pages/watchlist/widgets/watchlist_stats.dart';
 import 'package:projectmovie/pages/watchlist/watchlist_page.dart';
-import 'package:projectmovie/pages/movie/movie_details_page.dart';
 import 'package:projectmovie/pages/movie/movie_list_page.dart';
 
-class WatchlistSectionWidget extends StatelessWidget {
-  const WatchlistSectionWidget({super.key});
+class HomeWatchlistWidget extends StatelessWidget {
+  const HomeWatchlistWidget({super.key});
 
   @override
   Widget build(BuildContext context) {
     final watchlistController = Get.find<WatchlistController>();
-    final isDark = Get.isDarkMode;
+    final colorScheme = Theme.of(context).colorScheme;
+    final isDark = Theme.of(context).brightness == Brightness.dark;
     final screenWidth = MediaQuery.of(context).size.width;
 
     return Column(
@@ -28,12 +29,12 @@ class WatchlistSectionWidget extends StatelessWidget {
               ),
             ),
             TextButton(
-              onPressed: () => Get.to(() => const WatchlistPage()),
-              child: const Text('See All'),
+              onPressed: () => Get.to(() => WatchlistPage()),
               style: TextButton.styleFrom(
-                foregroundColor: Theme.of(context).colorScheme.primary,
+                foregroundColor: colorScheme.primary,
                 textStyle: Theme.of(context).textTheme.labelLarge,
               ),
+              child: const Text('See All'),
             ),
           ],
         ),
@@ -41,15 +42,16 @@ class WatchlistSectionWidget extends StatelessWidget {
         Obx(() {
           final watchlist = watchlistController.watchlist;
           if (watchlist.isEmpty) {
+            // Empty state
             return Center(
               child: Container(
                 width: screenWidth * 0.98,
                 padding: const EdgeInsets.all(16),
                 decoration: BoxDecoration(
-                  color: Theme.of(context).colorScheme.surfaceContainerHighest.withOpacity(0.3),
+                  color: colorScheme.surfaceContainerHighest.withAlpha((0.3 * 255).toInt()),
                   borderRadius: BorderRadius.circular(16),
                   border: Border.all(
-                    color: Theme.of(context).colorScheme.outline.withOpacity(0.2),
+                    color: colorScheme.outline.withAlpha((0.2 * 255).toInt()),
                   ),
                   boxShadow: [
                     BoxShadow(
@@ -66,7 +68,7 @@ class WatchlistSectionWidget extends StatelessWidget {
                     Icon(
                       Icons.bookmark_add_outlined,
                       size: 48,
-                      color: Theme.of(context).colorScheme.primary.withOpacity(0.6),
+                      color: colorScheme.primary.withAlpha((0.6 * 255).toInt()),
                     ),
                     const SizedBox(height: 8),
                     Text(
@@ -77,7 +79,7 @@ class WatchlistSectionWidget extends StatelessWidget {
                     Text(
                       'Start adding movies you want to watch!',
                       style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                            color: Theme.of(context).colorScheme.primary.withOpacity(0.6),
+                            color: colorScheme.primary.withAlpha((0.6 * 255).toInt()),
                           ),
                       textAlign: TextAlign.center,
                     ),
@@ -89,8 +91,8 @@ class WatchlistSectionWidget extends StatelessWidget {
                       icon: const Icon(Icons.explore_outlined, size: 18),
                       label: const Text('Browse Movies'),
                       style: ElevatedButton.styleFrom(
-                        backgroundColor: Theme.of(context).colorScheme.primary.withOpacity(0.1),
-                        foregroundColor: Theme.of(context).colorScheme.primary,
+                        backgroundColor: colorScheme.primary.withAlpha((0.1 * 255).toInt()),
+                        foregroundColor: colorScheme.primary,
                         elevation: 0,
                         textStyle: Theme.of(context).textTheme.labelLarge,
                         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
@@ -102,65 +104,17 @@ class WatchlistSectionWidget extends StatelessWidget {
               ),
             );
           }
-          // Non-empty watchlist preview
-          return SizedBox(
-            height: 150,
-            child: ListView.separated(
-              scrollDirection: Axis.horizontal,
-              itemCount: watchlist.length,
-              separatorBuilder: (_, __) => const SizedBox(width: 12),
-              itemBuilder: (_, index) {
-                final movie = watchlist[index];
-                return GestureDetector(
-                  onTap: () => Get.to(() => MovieDetailsPage(movieId: movie.id)),
-                  child: Container(
-                    width: 120,
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(16),
-                      color: Theme.of(context).colorScheme.surface,
-                      boxShadow: [
-                        BoxShadow(
-                          color: isDark ? Colors.black45 : Colors.black12,
-                          blurRadius: 6,
-                          offset: const Offset(0, 2),
-                        ),
-                      ],
-                    ),
-                    clipBehavior: Clip.antiAlias,
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        if (movie.posterPath.isNotEmpty)
-                          Image.network(
-                            'https://image.tmdb.org/t/p/w500${movie.posterPath}',
-                            height: 100,
-                            width: 120,
-                            fit: BoxFit.cover,
-                          )
-                        else
-                          Container(
-                            height: 100,
-                            width: 120,
-                            color: Colors.grey[300],
-                            child: const Icon(Icons.image_not_supported, size: 40),
-                          ),
-                        Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: Text(
-                            movie.title,
-                            maxLines: 2,
-                            overflow: TextOverflow.ellipsis,
-                            style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                                  fontWeight: FontWeight.w600,
-                                ),
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                );
-              },
-            ),
+          // Non-empty: show stats + preview (NO POSTERS)
+          return Column(
+            children: [
+              WatchlistStats(
+                watched: watchlistController.watched,
+                planToWatch: watchlistController.planToWatch,
+                rewatched: watchlistController.rewatched,
+                dropped: watchlistController.dropped,
+                total: watchlistController.total,
+              ),
+            ],
           );
         }),
       ],

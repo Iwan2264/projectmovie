@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:projectmovie/controllers/movie_controllers/movie_controller.dart';
-import 'package:projectmovie/controllers/movie_controllers/watchlist_controller.dart';
-
 import 'package:projectmovie/pages/movie/movie_details_widget/cast_widget.dart';
 import 'package:projectmovie/pages/movie/movie_details_widget/description.dart';
 import 'package:projectmovie/pages/movie/movie_details_widget/rate_widget.dart';
@@ -27,10 +25,6 @@ class MovieDetailsPage extends StatelessWidget {
         body: const Center(child: Text('Movie not found')),
       );
     }
-
-    final watchlistController = Get.find<WatchlistController>();
-    // ignore: unused_local_variable
-    final isSaved = watchlistController.isInWatchlist(movie); 
 
     return Scaffold(
       body: SafeArea(
@@ -84,10 +78,9 @@ class MovieDetailsPage extends StatelessWidget {
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          AddToWatchlistButton(
-                            isInWatchlist: watchlistController.isInWatchlist(movie),
-                            onTap: () => watchlistController.toggleWatchlist(movie),
-                          ),
+                          AddToListButton(
+                          movie: movie,
+                        ),
                           Padding(
                             padding: const EdgeInsets.only(right: 30),
                               child: RateButtonWidget(

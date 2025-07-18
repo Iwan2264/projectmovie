@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:projectmovie/pages/home/home_widgets/dynamic_header_widget.dart';
 import 'package:projectmovie/pages/home/home_widgets/stat_widget.dart';
 import 'package:projectmovie/pages/home/home_widgets/moviecard_widget.dart';
-import 'package:projectmovie/pages/home/home_widgets/emptylist_widget.dart';
+import 'package:projectmovie/pages/home/home_widgets/home_watchlist_widget.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({super.key});
@@ -30,7 +30,7 @@ class HomePage extends StatelessWidget {
             SizedBox(height: 32),
             PopularMoviesWidget(),
             SizedBox(height: 32),
-            WatchlistSectionWidget(),
+            HomeWatchlistWidget(),
             SizedBox(height: 20),
           ],
         ),

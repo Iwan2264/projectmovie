@@ -1,17 +1,24 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:projectmovie/controllers/movie_controllers/watchlist_controller.dart';
 
 class StatsSectionWidget extends StatelessWidget {
-  const StatsSectionWidget({super.key});
+  final WatchlistController controller;
+
+  const StatsSectionWidget({
+    super.key,
+    required this.controller,
+  });
 
   @override
   Widget build(BuildContext context) {
-    return Row(
+    return Obx(() => Row(
       children: [
         Expanded(
           child: _buildStatCard(
             context,
-            'Movies\nWatched',
-            '12',
+            'Watched',
+            (controller.watched + controller.rewatched).toString(),
             Icons.movie_outlined,
           ),
         ),
@@ -19,8 +26,8 @@ class StatsSectionWidget extends StatelessWidget {
         Expanded(
           child: _buildStatCard(
             context,
-            'Watchlist',
-            '8',
+            'Planned',
+            controller.planToWatch.toString(),
             Icons.bookmark_outlined,
           ),
         ),
@@ -29,22 +36,23 @@ class StatsSectionWidget extends StatelessWidget {
           child: _buildStatCard(
             context,
             'Reviews',
-            '5',
+            'TBA',
             Icons.rate_review_outlined,
           ),
         ),
       ],
-    );
+    ));
   }
 
-  Widget _buildStatCard(BuildContext context, String title, String count, IconData icon) {
+  Widget _buildStatCard(
+      BuildContext context, String title, String count, IconData icon) {
     return Container(
       padding: const EdgeInsets.all(16),
       decoration: BoxDecoration(
-        color: Theme.of(context).colorScheme.surfaceContainerHighest.withValues(alpha: 0.5),
+        color: Theme.of(context).colorScheme.surfaceContainerHighest.withAlpha(128),
         borderRadius: BorderRadius.circular(12),
         border: Border.all(
-          color: Theme.of(context).colorScheme.outline.withValues(alpha: 0.2),
+          color: Theme.of(context).colorScheme.outline.withAlpha(51),
         ),
       ),
       child: Column(
@@ -58,9 +66,9 @@ class StatsSectionWidget extends StatelessWidget {
           Text(
             count,
             style: Theme.of(context).textTheme.headlineSmall?.copyWith(
-              fontWeight: FontWeight.bold,
-              color: Theme.of(context).colorScheme.primary,
-            ),
+                  fontWeight: FontWeight.bold,
+                  color: Theme.of(context).colorScheme.primary,
+                ),
           ),
           const SizedBox(height: 4),
           Text(

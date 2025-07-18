@@ -16,19 +16,19 @@ class PopularMoviesWidget extends StatelessWidget {
       children: [
         Row(
           children: [
-            const Expanded(
-              child: Text(
-                'Popular Now',
-                style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+            Expanded(
+              child: GestureDetector(
+                onTap: () => navController.selectedIndex.value = 0,
+                child: const Text(
+                  'Popular Now!',
+                  textAlign: TextAlign.center,
+                  style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                ),
               ),
             ),
-            TextButton(
-              onPressed: () => navController.selectedIndex.value = 0,
-              child: const Text('See All'),
-            )
           ],
         ),
-        const SizedBox(height: 12),
+        const SizedBox(height: 10),
         Obx(() {
           final movies = movieController.movies.take(10).toList();
           if (movies.isEmpty) {
@@ -42,10 +42,9 @@ class PopularMoviesWidget extends StatelessWidget {
               separatorBuilder: (_, __) => const SizedBox(width: 12),
               itemBuilder: (_, index) {
                 final movie = movies[index];
-                // Inlined movie card widget:
                 return GestureDetector(
                   onTap: () {
-                    // You can implement navigation or details here
+                    Get.toNamed('/movie/${movie.id}');
                   },
                   child: Container(
                     width: 140,

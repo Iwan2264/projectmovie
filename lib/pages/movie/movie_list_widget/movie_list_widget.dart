@@ -4,6 +4,7 @@ import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:projectmovie/models/movie.dart';
 import 'package:projectmovie/pages/movie/movie_details_page.dart';
 import 'package:projectmovie/utils/date_formatter.dart';
+import 'package:projectmovie/pages/movie/movie_list_widget/add_to_list_compact_widget.dart';
 
 class MovieListItem extends StatelessWidget {
   final Movie movie;
@@ -84,29 +85,15 @@ class MovieListItem extends StatelessWidget {
                 ),
               ),
               // Add to List button
-              Positioned(
-                left: screenWidth * 0.62,
-                top: 61,
-                child: Container(
-                  width: screenWidth * 0.35,
-                  height: 35,
-                  decoration: BoxDecoration(
-                    color: colorScheme.primary,
-                    borderRadius: BorderRadius.circular(6),
-                  ),
-                  child: Center(
-                    child: Text(
-                      'Add to List',
-                      style: theme.textTheme.labelMedium?.copyWith(
-                        color: colorScheme.onPrimary,
-                        fontWeight: FontWeight.w600,
-                        fontFamily: 'Poppins',
-                        fontSize: 12,
-                      ),
-                    ),
-                  ),
-                ),
-              ),
+Positioned(
+  left: screenWidth * 0.62,
+  top: 61,
+  child: SizedBox(
+    width: screenWidth * 0.35,
+    height: 28, // match compact button height
+    child: AddToListCompactButton(movie: movie),
+  ),
+),
               // Rating bar and score
               Positioned(
                 left: screenWidth * 0.225,

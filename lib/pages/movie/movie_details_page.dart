@@ -6,7 +6,7 @@ import 'package:projectmovie/pages/movie/movie_details_widget/description.dart';
 import 'package:projectmovie/pages/movie/movie_details_widget/rate_widget.dart';
 import 'package:projectmovie/pages/movie/movie_details_widget/trailer_widget.dart';
 import 'package:projectmovie/pages/movie/movie_details_widget/streaming_widget.dart';
-import 'package:projectmovie/widgets/addbutton_widget.dart';
+import 'package:projectmovie/pages/movie/movie_details_widget/add_to_list_widget.dart';
 
 class MovieDetailsPage extends StatelessWidget {
   final int movieId;

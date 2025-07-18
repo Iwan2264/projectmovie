@@ -59,19 +59,26 @@ class WatchlistController extends GetxController {
     return entry?.score;
   }
 
-  void setScore(Movie movie, double score) {
-    final entry = _watchlist.firstWhereOrNull((e) => e.movie.id == movie.id);
-    if (entry != null) {
-      entry.score = score;
-      // Auto-mark as watched when a score is set
-      if (entry.status != WatchStatus.watched && entry.status != WatchStatus.rewatched) {
-        entry.status = WatchStatus.watched;
-      }
-      entry.save();
-      _watchlist.refresh();
-      Get.snackbar("Updated", "${movie.title} score updated");
+  void setScore(Movie movie, double? score) { // <-- make score nullable
+  final entry = _watchlist.firstWhereOrNull((e) => e.movie.id == movie.id);
+  if (entry != null) {
+    entry.score = score;
+    // Auto-mark as watched when a score is set
+    if (score != null &&
+        entry.status != WatchStatus.watched &&
+        entry.status != WatchStatus.rewatched) {
+      entry.status = WatchStatus.watched;
     }
+    entry.save();
+    _watchlist.refresh();
+    Get.snackbar(
+      "Updated",
+      score == null
+          ? "${movie.title} rating removed"
+          : "${movie.title} score updated"
+    );
   }
+}
 
   // ---- STATISTICS ----
   double get meanScore {

@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:projectmovie/pages/home/home_widgets/dynamic_header_widget.dart';
-import 'package:projectmovie/pages/home/home_widgets/stat_widget.dart';
 import 'package:projectmovie/pages/home/home_widgets/moviecard_widget.dart';
 import 'package:projectmovie/pages/home/home_widgets/home_watchlist_widget.dart';
 
@@ -9,6 +8,8 @@ class HomePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    
+
     return Scaffold(
       backgroundColor: Theme.of(context).colorScheme.surfaceContainer,
       appBar: AppBar(
@@ -23,15 +24,13 @@ class HomePage extends StatelessWidget {
       body: SafeArea(
         child: ListView(
           padding: const EdgeInsets.all(16),
-          children: const [
-            DynamicHeaderWidget(),
-            SizedBox(height: 24),
-            StatsSectionWidget(),
-            SizedBox(height: 32),
-            PopularMoviesWidget(),
-            SizedBox(height: 32),
-            HomeWatchlistWidget(),
-            SizedBox(height: 20),
+          children: [
+            const DynamicHeaderWidget(),
+            const SizedBox(height: 16),
+            const HomeWatchlistWidget(),
+            const SizedBox(height: 16),
+            const PopularMoviesWidget(),
+            const SizedBox(height: 16),
           ],
         ),
       ),

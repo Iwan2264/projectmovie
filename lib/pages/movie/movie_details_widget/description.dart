@@ -82,20 +82,25 @@ class MoviePosterDescription extends StatelessWidget {
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 10),
             child: Center(
-              child: Wrap(
-                spacing: 10,
-                children: movie.genreIds.take(5).map((id) {
-                  final genre = controller.getGenreNameById(id);
-                  return Chip(
-                    backgroundColor: colorScheme.surfaceContainerHigh,
-                    label: Text(
-                      genre,
-                      style: Theme.of(context).textTheme.labelLarge?.copyWith(
-                            color: colorScheme.onSurfaceVariant,
-                          ),
-                    ),
-                  );
-                }).toList(),
+              child: SingleChildScrollView(
+                scrollDirection: Axis.horizontal,
+                child: Row(
+                  children: movie.genreIds.map((id) { // Removed .take(5)
+                    final genre = controller.getGenreNameById(id);
+                    return Padding(
+                      padding: const EdgeInsets.only(right: 10),
+                      child: Chip(
+                        backgroundColor: colorScheme.surfaceContainerHigh,
+                        label: Text(
+                          genre,
+                          style: Theme.of(context).textTheme.labelLarge?.copyWith(
+                                color: colorScheme.onSurfaceVariant,
+                              ),
+                        ),
+                      ),
+                    );
+                  }).toList(),
+                ),
               ),
             ),
           ),

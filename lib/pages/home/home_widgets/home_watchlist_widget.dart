@@ -4,7 +4,7 @@ import 'package:projectmovie/controllers/movie_controllers/watchlist_controller.
 import 'package:projectmovie/pages/watchlist/widgets/watchlist_stats_chart.dart';
 import 'package:projectmovie/pages/watchlist/watchlist_page.dart';
 import 'package:projectmovie/pages/movie/movie_list_page.dart';
-
+import 'package:projectmovie/pages/home/home_widgets/stat_widget.dart';
 class HomeWatchlistWidget extends StatelessWidget {
   const HomeWatchlistWidget({super.key});
 
@@ -21,24 +21,21 @@ class HomeWatchlistWidget extends StatelessWidget {
         Row(
           children: [
             Expanded(
-              child: Text(
-                'Your Watchlist',
-                style: Theme.of(context).textTheme.titleLarge?.copyWith(
-                      fontWeight: FontWeight.bold,
+              child: GestureDetector(
+                onTap: () => Get.to(() => WatchlistPage()),
+                child: Text(
+                  'Watchlist Overview!',
+                  textAlign: TextAlign.center,
+                  style: Theme.of(context).textTheme.titleLarge?.copyWith(
+                    fontWeight: FontWeight.bold,
                     ),
+                ),
               ),
-            ),
-            TextButton(
-              onPressed: () => Get.to(() => WatchlistPage()),
-              style: TextButton.styleFrom(
-                foregroundColor: colorScheme.primary,
-                textStyle: Theme.of(context).textTheme.labelLarge,
-              ),
-              child: const Text('See All'),
             ),
           ],
         ),
-        const SizedBox(height: 12),
+        const SizedBox(height: 10),
+        StatsSectionWidget(controller: watchlistController),     
         Obx(() {
           final watchlist = watchlistController.watchlist;
           if (watchlist.isEmpty) {
@@ -46,7 +43,7 @@ class HomeWatchlistWidget extends StatelessWidget {
             return Center(
               child: Container(
                 width: screenWidth * 0.98,
-                padding: const EdgeInsets.all(16),
+                padding: const EdgeInsets.all(10),
                 decoration: BoxDecoration(
                   color: colorScheme.surfaceContainerHighest.withAlpha((0.3 * 255).toInt()),
                   borderRadius: BorderRadius.circular(16),

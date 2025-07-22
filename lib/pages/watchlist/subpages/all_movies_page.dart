@@ -28,7 +28,7 @@ class _WatchlistMoviesPageState extends State<WatchlistMoviesPage> {
     return Scaffold(
       backgroundColor: colorScheme.surface,
       appBar: AppBar(
-        title: const Text('My Watchlist Movies'),
+        title: const Text('My Watchlist'),
         backgroundColor: colorScheme.primary,
         foregroundColor: colorScheme.onPrimary,
         elevation: 0,
